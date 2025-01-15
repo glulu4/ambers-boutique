@@ -8,6 +8,7 @@ import "./globals.css";
 import {Header} from "@/components/Header";
 import {Footer} from "@/components/Footer";
 import Providers from "@/components/theme-provider";
+import {default as TanProvider} from "./providers";
 
 const fontSans = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -44,13 +45,14 @@ export default function RootLayout({
       >
         <Providers
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="light"
+          // enableSystem
           disableTransitionOnChange
         >
           <main>
             <Header />
-            {children}
+            <TanProvider>{children}</TanProvider>
+            
             <Footer />
             </main>
         </Providers>
