@@ -48,3 +48,24 @@ export interface StripePrice {
   unit_amount: number;
   unit_amount_decimal: string;
 }
+
+export interface StripeProductResponse {
+  id: string;
+  object: 'product';
+  active: boolean;
+  created: number;
+  default_price: string | null;
+  description: string | null;
+  images: string[];
+  marketing_features: string[];
+  livemode: boolean;
+  metadata: Record<string, any>;
+  name: string;
+  package_dimensions: unknown | null;
+  shippable: boolean | null;
+  statement_descriptor: string | null;
+  tax_code: string | null;
+  unit_label: string | null;
+  updated: number;
+  url: string | null;
+}

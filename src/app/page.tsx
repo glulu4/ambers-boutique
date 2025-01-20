@@ -1,47 +1,25 @@
-import ProductCard from "@/components/ProductCard";
-import {StripeProductList} from "@/types/types";
-
-async function fetchProducts(): Promise<StripeProductList> {
-
-  try {
-    const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY!)
-
-    if (!stripe) throw new Error("Stripe object is null");
-    const products: StripeProductList = await stripe.products.list({expand: ['data.default_price']});
-
-    return products;
-  } catch (error) {
-    console.log("Error: ", error);
-  
-    return {} as StripeProductList
-  }
+import CategoryProducts from "@/components/CategoryProducts";
+import HeroSection from "@/components/landing/HeroSection";
+import HeaderText from "@/components/text/HeaderText";
+import SecondaryText from "@/components/text/SecondaryText";
+import {StripeProductData, StripeProductList} from "@/types/types";
+import {getCategories, getProductPerCategory} from "@/utils/stripeHelpers";
 
 
-  
-}
 
 const Page = async () => {
 
-
-
-  const products: StripeProductList = await fetchProducts();
-
-  console.log("Data: ", products);
-  
+  const productsByCategory: Record<string, StripeProductData[]> = await getProductPerCategory();
 
   return (
-    <div className="container mx-auto px-5 mb-10">
-      <div>
-        <h1 className="text-3xl">
-          Products
-        </h1>
+    <div className="container mx-auto mb-10">
+
+      <HeroSection />
+
+      <div className="py-20 md:py-48">
+        <CategoryProducts productsByCategory={productsByCategory}/>
       </div>
 
-      <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-        {products.data.map((prod, index) => (
-          <ProductCard product={prod} key={index}/>
-        ))}
-      </div>
 
     </div>
   );

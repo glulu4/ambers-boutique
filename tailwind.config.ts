@@ -13,18 +13,32 @@ const config = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
+      padding: "0rem", //
+      // screens: {
+      //   "2xl": "1400px",
+      // },
     },
     extend: {
+
+
+            width: {
+  'fill': 'fill-available',
+  'webkit-fill': '-webkit-fill-available',
+  'moz-fill': '-moz-available',
+},
+height: {
+  'fill': 'fill-available',
+  'webkit-fill': '-webkit-fill-available',
+  'moz-fill': '-moz-available',
+},
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        primaryRed:"#C42847",
+        primaryRedHover: "#891A30",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -75,6 +89,10 @@ const config = {
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
+        heading: ["var(--font-serif)", ...fontFamily.serif],
+        secHeading:["var(--font-sec-header)", ...fontFamily.serif],
+        body: ["var(--font-body)", ...fontFamily.sans],
+        accent: ["var(--font-accent)", "cursive"],
       },
     },
   },
