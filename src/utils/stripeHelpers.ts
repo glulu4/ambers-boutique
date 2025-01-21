@@ -1,7 +1,66 @@
-import {StripeProductData, StripeProductList, StripeProductResponse} from "@/types/types";
+import {LineItem, StripePaymentLinkResponseObj, StripeProductData, StripeProductList} from "@/types/types";
 import {getStripe} from "./getStripe";
-import {log} from "util";
 import {capitalizeFirstLetter, formatCurrency} from "./util";
+
+export async function createSessionLink(lineItems: LineItem[], successUrl:string, cancelUrl:string): Promise<string> {
+  try {
+    const stripe = getStripe();
+    if (!stripe) throw new Error("Stripe object is null");
+
+    const session = await stripe.checkout.sessions.create({
+      success_url: successUrl,
+      payment_method_types: ["card"],
+      line_items: lineItems,
+      mode: 'payment',
+      cancel_url: cancelUrl,   // Redirect here if canceled
+      shipping_options: [
+        {
+          shipping_rate: "shr_1QjpjoAuFAcoiptYtjc2IJiy", // Use your predefined shipping rate ID
+        },
+      ],
+      shipping_address_collection: {
+        allowed_countries: ["US", "CA"], // Update for your allowed countries
+      },
+      automatic_tax: {
+        enabled: true, // Enable automatic tax calculations
+      },
+    });
+
+    return session.url;
+
+  } catch (error) {
+    console.log("Error getting session url: ", error);
+    throw error;
+  }
+}
+
+export async function createPaymentLink(lineItems: LineItem[]): Promise<StripePaymentLinkResponseObj> {
+  try {
+    const stripe = getStripe();
+    if (!stripe) throw new Error("Stripe object is null");
+
+    console.log("in helper");
+    
+    const paymentLink: StripePaymentLinkResponseObj = await stripe.paymentLinks.create({
+      line_items: lineItems,
+      shipping_address_collection: {
+        allowed_countries: ["US", "CA", "GB"], // Specify the countries where shipping is available
+      },
+      automatic_tax: {
+        enabled: true,
+      },
+
+
+    });
+    console.log("returning: ", paymentLink.url);
+    
+    return paymentLink;
+
+  } catch (error) {
+    console.log("Error: ", error);
+    return {} as StripePaymentLinkResponseObj
+  }
+}
 
 export async function getProductsByCategory(category:string):Promise<StripeProductData[]> {
 
@@ -173,4 +232,12 @@ export function getProductType(product: StripeProductData):string{
 
 export function getProductPrice(product: StripeProductData):string{
   return formatCurrency(product.default_price)
+}
+
+export function getProductHref(product: StripeProductData):string{
+  return `/${product.metadata.type}/${product.id}`
+}
+
+export function getProductImg(product: StripeProductData): string{
+  return product.images[0]
 }

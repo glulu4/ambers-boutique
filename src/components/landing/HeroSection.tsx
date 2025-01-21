@@ -11,7 +11,7 @@ const HeroSection = () => {
                 <HeaderText size="large" className=" leading-10 text-black ">
                     Unique and <br/>
                    Authentic
-                    Vintage <br />Designer Jewellery
+                    Vintage <br />Designer Jewelry
                 </HeaderText>
 
                 <SecondaryText size="large" className="">

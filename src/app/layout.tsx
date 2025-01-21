@@ -8,8 +8,8 @@ import "./globals.css";
 import {Header} from "@/components/Header";
 import {Footer} from "@/components/Footer";
 import Providers from "@/components/theme-provider";
-import {default as TanProvider} from "./providers";
-
+import { CartProvider } from "@/context/cartContext";
+import TanProviders from "./providers";
 const fontSans = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 const fontHeading = Inria_Serif({
@@ -81,12 +81,30 @@ export default function RootLayout({
           // enableSystem
           disableTransitionOnChange
         >
-          <main>
+
+          {/* Query Client Provider */}
+          <TanProviders>
+            {/* Cart State Management */}
+            <CartProvider>
+              <main>
+                <Header />
+                {children}
+                <Footer />
+              </main>
+            </CartProvider>
+          </TanProviders>
+          {/* <main>
             <Header />
-            <TanProvider>{children}</TanProvider>
+            <TanProviders>
+
+              <CartProvider>
+                {children}
+              </CartProvider>
+             
+            </TanProviders>
             
             <Footer />
-            </main>
+            </main> */}
         </Providers>
       </body>
     </html>

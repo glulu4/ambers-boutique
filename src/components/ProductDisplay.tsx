@@ -1,4 +1,4 @@
-
+"use client"
 import {CheckIcon, QuestionMarkCircleIcon, StarIcon} from '@heroicons/react/20/solid'
 import {Radio, RadioGroup} from '@headlessui/react'
 import {ShieldCheckIcon} from '@heroicons/react/24/outline'
@@ -7,12 +7,24 @@ import {StripeProductData} from '@/types/types'
 import {getProductPrice, getProductType} from '@/utils/stripeHelpers'
 import HeaderText from './text/HeaderText'
 import SecondaryText from './text/SecondaryText'
+import {useCart} from '@/context/cartContext'
 
 
-const reviews = {average: 4, totalCount: 1624}
+
 
 
 export default function ProductDisplay({product}: {product: StripeProductData}) {
+    const {addItemToCart, cart, cartTotal} = useCart();
+
+
+    const handleAddToCart = () => {
+        addItemToCart({
+            stripeData: product,
+            quantity: 1,
+        });
+
+
+    };
 
     return (
         <div className="bg-white">
@@ -79,10 +91,14 @@ export default function ProductDisplay({product}: {product: StripeProductData}) 
                             </div>
                             <div className="mt-10">
                                 <button
+                                    onClick={(e) => {
+                                        e.stopPropagation(); // Prevent click from propagating to the Link
+                                        handleAddToCart();
+                                    }}
                                     type="submit"
                                     className="flex w-full items-center justify-center rounded-md border border-transparent bg-primaryRed px-8 py-3 text-base font-medium text-white hover:bg-primaryRedHover focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
                                 >
-                                    Add to bag
+                                    Add to cart
                                 </button>
                             </div>
                             <div className="mt-6 text-center">

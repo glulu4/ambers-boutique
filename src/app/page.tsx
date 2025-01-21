@@ -11,6 +11,9 @@ const Page = async () => {
 
   const productsByCategory: Record<string, StripeProductData[]> = await getProductPerCategory();
 
+
+  
+
   return (
     <div className="container mx-auto mb-10">
 
