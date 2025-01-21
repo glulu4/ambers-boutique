@@ -5,21 +5,25 @@ import HeaderText from "@/components/text/HeaderText";
 import {capitalizeFirstLetter} from "@/utils/util";
 import {categories} from "@/types/categories";
 
-export const dynamic = "force-dynamic"; // Allow dynamic generation of pages
+// export const dynamic = "force-dynamic"; // Allow dynamic generation of pages
 
+
+type Params = Promise<{category: string}>;
+
+interface CategoryPageProps {
+    params: Params;
+
+}
 
 export const generateStaticParams = async () => {
-    // Fetch all categories
-    // const categories = await getCategories();
 
-    // Generate an array of params objects for each category
     return categories.map((category) => ({
         category, // This will match the `[category]` dynamic segment
     }));
 };
 
 
-const CategoryPage = async ({params}: {params: {category: string}}) => {
+const CategoryPage = async ({params}: CategoryPageProps) => {
     const {category} = await params;
 
     // Dynamically fetch products for the category
