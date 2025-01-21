@@ -36,7 +36,7 @@ const CategoryPage = async ({params}: CategoryPageProps) => {
     return (
         <div className=" py-10">
             <HeaderText size="large" className=" pb-12 text-left">
-                {capitalizeFirstLetter(category)}
+                {capitalizeFirstLetter(category)}&apos;s
             </HeaderText>
 
             {/* Dynamic Grid */}
