@@ -103,7 +103,7 @@ export default function Page() {
             
             const paymentUrl = await fetchPaymentLink();
             if (paymentUrl) {                
-                window.open(paymentUrl, "blank");
+                window.open(paymentUrl, "_self");
             } else {
                 alert("There was an error during checkout");
             }

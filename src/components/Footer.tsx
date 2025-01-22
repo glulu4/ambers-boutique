@@ -75,7 +75,7 @@ const navigation = [
 export const Footer: FunctionComponent = () => {
   return (
     <footer className="">
-      <div className="mx-auto  px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
+      <div className=" py-12 md:flex md:items-center md:justify-between">
         <div className="flex justify-center gap-x-6 md:order-2">
           {navigation.map((item) => (
             <a key={item.name} href={item.href} className="text-gray-400 hover:text-gray-300">
