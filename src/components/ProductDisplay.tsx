@@ -8,6 +8,7 @@ import {getProductPrice, getProductType} from '@/utils/stripeHelpers'
 import HeaderText from './text/HeaderText'
 import SecondaryText from './text/SecondaryText'
 import {useCart} from '@/context/cartContext'
+import {notifyItemAddedToCart} from '@/utils/util'
 
 
 
@@ -23,12 +24,13 @@ export default function ProductDisplay({product}: {product: StripeProductData}) 
             quantity: 1,
         });
 
+        notifyItemAddedToCart();
 
     };
 
     return (
-        <div className="bg-white">
-            <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+        <div>
+            <div className=" mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
                 {/* Product details */}
                 <div className="lg:max-w-lg lg:self-end">
                     <nav aria-label="Breadcrumb">
@@ -39,7 +41,7 @@ export default function ProductDisplay({product}: {product: StripeProductData}) 
                     </nav>
 
                     <div className="mt-4">
-                        <HeaderText size='large' className="">
+                        <HeaderText size='large'>
                             {product.name}
                         </HeaderText>
                     </div>
@@ -95,7 +97,7 @@ export default function ProductDisplay({product}: {product: StripeProductData}) 
                                         e.stopPropagation(); // Prevent click from propagating to the Link
                                         handleAddToCart();
                                     }}
-                                    type="submit"
+                                    type="button"
                                     className="flex w-full items-center justify-center rounded-md border border-transparent bg-primaryRed px-8 py-3 text-base font-medium text-white hover:bg-primaryRedHover focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
                                 >
                                     Add to cart

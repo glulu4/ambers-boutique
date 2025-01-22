@@ -14,7 +14,7 @@ const SecondaryText: React.FC<SecondaryTextProps> = ({size = "medium", children,
     };
 
     return (
-        <p className={`${sizeClasses[size]} font-light text-gray-600 ${className}`}>
+        <p className={`${sizeClasses[size]} ${className} font-light text-gray-600 `}>
             {children}
         </p>
     );

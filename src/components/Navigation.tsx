@@ -323,7 +323,7 @@ export default function Navigation({
     }
 
     return (
-        <header className={`bg-white ${className}`}>
+        <header className={`${className}`}>
             <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between  lg:px-8">
                 {logo && <div className="flex">{logo}</div>}
 

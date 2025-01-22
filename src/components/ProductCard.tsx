@@ -67,7 +67,7 @@
 import {useCart} from "@/context/cartContext";
 import {StripeProductData} from "@/types/types";
 import {getProductHref, getProductImg, getProductPrice} from "@/utils/stripeHelpers";
-import {formatCurrency} from "@/utils/util";
+import {formatCurrency, notifyItemAddedToCart} from "@/utils/util";
 import {ShoppingCart} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -87,6 +87,8 @@ export default function ProductCard({product, className}: ProductCardProps) {
             stripeData: product,
             quantity: 1,
         });
+
+        notifyItemAddedToCart();
 
 
     };

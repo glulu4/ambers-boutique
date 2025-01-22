@@ -9,6 +9,7 @@ import {ChevronDownIcon} from '@heroicons/react/16/solid'
 import {CheckIcon, ClockIcon, QuestionMarkCircleIcon, XMarkIcon} from '@heroicons/react/20/solid'
 import Image from 'next/image'
 import {useRouter} from "next/navigation";
+import toast from 'react-hot-toast'
 
 // const products = [
 //     {
@@ -94,6 +95,11 @@ export default function Page() {
 
     async function goToCheckout() {
         try {
+
+            if (cart.length === 0){
+                toast.error("Cart is empty!")
+                return;
+            }
             
             const paymentUrl = await fetchPaymentLink();
             if (paymentUrl) {                

@@ -10,6 +10,10 @@ import {Footer} from "@/components/Footer";
 import Providers from "@/components/theme-provider";
 import { CartProvider } from "@/context/cartContext";
 import TanProviders from "./providers";
+
+import {Toaster} from 'react-hot-toast';
+
+
 const fontSans = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 const fontHeading = Inria_Serif({
@@ -66,7 +70,7 @@ export default function RootLayout({
       <body
         className={cn(
           // "min-h-screen bg-background font-sans antialiased w-5/6 m-auto",
-          "min-h-screen bg-background font-sans antialiased m-auto",
+          "min-h-screen bg-neutral-50 font-sans antialiased m-auto",
           "w-[95%] sm:w-5/6", // Wider width on mobile, default width for larger screens
           fontSans.variable,
           fontSecHeading.variable,
@@ -88,6 +92,7 @@ export default function RootLayout({
             <CartProvider>
               <main>
                 <Header />
+                <Toaster/>
                 {children}
                 <Footer />
               </main>

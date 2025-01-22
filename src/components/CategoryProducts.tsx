@@ -15,6 +15,9 @@ const CategoryProducts = ({
 
     return (
         <div className="space-y-20 ">
+            <HeaderText size='large' className='pb-10'>
+                Shop Our Products
+            </HeaderText>
             {Object.entries(productsByCategory).map(([category, products]) => (
                 <div key={category} className="space-y-6">
                     <div className="flex items-center justify-between">
