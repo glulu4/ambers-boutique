@@ -14,6 +14,8 @@ import {StripeProductList} from "@/types/types";
 // interface CategoryPageProps {
 //     params: Params;
 
+
+
 // }
 
 // export const generateStaticParams = async () => {
