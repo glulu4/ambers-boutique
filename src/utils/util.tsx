@@ -1,4 +1,6 @@
+import SecondaryText from "@/components/text/SecondaryText";
 import {StripePrice} from "@/types/types";
+import {Check} from "lucide-react";
 import Link from "next/link";
 import toast from "react-hot-toast";
 
@@ -7,29 +9,58 @@ export function capitalizeFirstLetter(str: string) {
 }
 
 export function notifyItemAddedToCart() {
-    toast.success('Added to cart!');
+
+
+    // toast.success('Added to cart!', {
+        
+    // });
+
+    toast.custom((t) => (
+        <div
+            className={`${t.visible ? 'animate-enter' : 'animate-leave'
+                } max-w-md w-full bg-white shadow-md rounded-lg flex items-center ring-1 ring-gray-300 overflow-hidden`}
+        >
+            {/* Left Section: Icon */}
+            <div className="flex items-center justify-center p-4">
+                <Check className="text-green-600 w-6 h-6" />
+            </div>
+
+            {/* Middle Section: Message */}
+            <div className="flex-1 p-4">
+                <SecondaryText size="small" className="text-sm font-medium text-gray-800">Added to cart</SecondaryText>
+            </div>
+
+            {/* Right Section: Action */}
+            <div className="border-l border-gray-200">
+                <Link
+                    href="/cart"
+                    className="flex items-center justify-center px-4 py-2 text-sm font-medium text-primaryRed hover:text-primaryRedHover focus:outline-none focus:ring-2 focus:ring-primaryRed"
+                >
+                    View Cart
+                </Link>
+            </div>
+        </div>
+    ), {
+        duration: 3000,
+    });
+
 
     // toast.custom((t) => (
     //     <div
     //         className={`${t.visible ? 'animate-enter' : 'animate-leave'
     //             } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
     //     >
-    //         <div className="flex-1 w-0 p-4" >
-    //             <div className="flex items-start" >
-    //                 <div className="flex-shrink-0 pt-0.5" >
-    //                     <img
-    //                         className="h-10 w-10 rounded-full"
-    //                         src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixqx=6GHAjsWpt9&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-    //                         alt=""
-    //                     />
+    //         <div className="flex-1 w-0 p-4 " >
+    //             <div className="flex" >
+    //                 <div className="flex-shrink-0 pt-0.5 flex items-center justify-center" >
+    //                     <Check color="#4BB543"/>
+
     //                 </div>
     //                 < div className="ml-3 flex-1" >
-    //                     <p className="text-sm font-medium text-gray-900" >
-    //                         Emilia Gates
-    //                     </p>
-    //                     < p className="mt-1 text-sm text-gray-500" >
-    //                         Sure! 8: 30pm works great!
-    //                     </p>
+    //                     <SecondaryText className="text-sm font-medium text-gray-900 pl-5" >
+    //                         Added to cart
+    //                     </SecondaryText>
+
     //                 </div>
     //             </div>
     //         </div>
@@ -37,13 +68,15 @@ export function notifyItemAddedToCart() {
     //             <Link
     //             href="/cart"
     //                 // onClick={() => toast.dismiss(t.id)}
-    //                 className="font-secHeading w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-primaryRed hover:text-primaryRedHover focus:outline-none focus:ring-2"
+    //                 className="font-body w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-primaryRed hover:text-primaryRedHover focus:outline-none focus:ring-2"
     //             >
-    //                 Cart
+    //                 View Cart
     //             </Link>
     //         </div>
     //     </div>
-    // ))
+    // ),{
+    //     duration: 3000,
+    // })
 }
 
 

@@ -15,7 +15,7 @@ const HeroSection = () => {
                 </HeaderText>
 
                 <SecondaryText size="large" className="">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem voluptate sapiente similique quasi debitis? Inventore nostrum, quos sapiente dignissimos ullam distinctio enim neque veritatis voluptatibus deleniti iusto dolores maiores autem!
+                    We take pride in transforming vintage Chanel buttons into timeless pieces of jewelry. Each button carries its own unique history, which we carefully preserve while crafting them into stunning earrings, necklaces, bracelets, and pins. By upcycling these iconic designs, we not only celebrate the legacy of Chanel but also contribute to sustainable fashion. Our pieces are perfect for those who appreciate luxury, authenticity, and one-of-a-kind accessories that tell a story.
                 </SecondaryText>
                 {/* <a
                     href="#shop"

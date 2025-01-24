@@ -43,12 +43,11 @@ export default function Thanks() {
           <HeaderText className="text-base/7 font-semibold text-primaryRed">
           Thank you for shopping with us
                   </HeaderText>
-          {/* <p className="mt-2 text-4xl font-semibold tracking-tight text-white sm:text-5xl">We’re here to help</p> */}
           <SecondaryText className="mt-6 text-base/7 text-gray-900">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et, egestas tempus tellus etiam sed. Quam a
-            scelerisque amet ullamcorper eu enim et fermentum, augue. Aliquet amet volutpat quisque ut interdum
-            tincidunt duis.
-                  </SecondaryText>
+            Your support means the world to us! Every purchase you make helps us continue crafting unique, high-quality products that bring joy and style to your life.
+            We&apos;re committed to providing an exceptional shopping experience and can&apos;t wait to serve you again.
+            If you have any questions or need assistance, don&apos;t hesitate to reach out to our team.
+    Thank you for being a part of our story!                  </SecondaryText>
           {/* <div className="mt-8">
             <a
               href="#"
