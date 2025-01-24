@@ -34,12 +34,13 @@ const HeroSection = () => {
                     objectFit="cover"
                     className="rounded-md"
                 />
+                
                 {/* Overlay for better text visibility on mobile only */}
-                <div className="absolute inset-0 bg-black/45 backdrop-blur-sm lg:hidden" />
+                <div className="absolute inset-0 bg-black/30 backdrop-blur-sm lg:hidden" />
                 {/* Absolute positioned text for mobile only */}
                 <div className="absolute inset-0 flex items-center px-4 lg:hidden">
                     <div className="max-w-lg flex flex-col justify-around h-webkit-fill text-center">
-                        <HeaderText size="large" className=" text-neutral-200 mb-6">
+                        <HeaderText size="large" className=" text-neutral-200 mb-6 font-semibold">
                             Unique and <br />
                             <span className="italic">Authentic</span> <br />
                             Vintage <span className="italic">Designer</span> Jewellery

@@ -103,7 +103,7 @@ export default function ProductDisplay({product}: {product: StripeProductData}) 
                                     Add to cart
                                 </button>
                             </div>
-                            <div className="mt-6 text-center">
+                            {/* <div className="mt-6 text-center">
                                 <a href="#" className="group inline-flex text-base font-medium">
                                     <ShieldCheckIcon
                                         aria-hidden="true"
@@ -111,7 +111,7 @@ export default function ProductDisplay({product}: {product: StripeProductData}) 
                                     />
                                     <span className="text-gray-500 hover:text-gray-700">Lifetime Guarantee</span>
                                 </a>
-                            </div>
+                            </div> */}
                         </form>
                     </section>
                 </div>

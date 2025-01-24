@@ -12,8 +12,8 @@ export default function OurStory() {
             Our Story
         </HeaderText>
 
-          <div className='my-12 leading-[3rem] space-y-8 font-secHeading'>
-              <SecondaryText size='large' className='leading-[3rem] font-secHeading'>
+      <div className='my-12 leading-loose sm:leading-[3rem] space-y-8 font-secHeading'>
+              <SecondaryText size='large' className=' font-secHeading'>
 
           Our journey began in 2023 when I, Amber Cohen, embarked on a life-changing adventure to Paris.
           I found myself drawn to the rich tapestry of culture, art, and fashion that defines Parisian life.
@@ -29,7 +29,7 @@ export default function OurStory() {
 
             </SecondaryText>
 
-              <SecondaryText size='large' className='leading-[3rem] font-secHeading'>
+              <SecondaryText size='large' className=' font-secHeading'>
           We believe that everyone deserves to feel special,
            to adorn themselves with pieces that resonate with 
            their individuality. Our mission is to bring a 
