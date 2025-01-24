@@ -11,7 +11,14 @@ export default function Thanks() {
         height={500}
           alt="Vintage Chanel Jewelry"
           src="/images/img2.jpg"
-                  className="size-full object-cover rounded-tl-md rounded-bl-md"
+                  className="size-full object-cover 
+
+                  rounded-tr-md
+                  sm:rounded-tr-none
+                  rounded-tl-md 
+                  rounded-bl-md
+                  sm:rounded-bl-none
+                  "
         />
         <svg
           viewBox="0 0 926 676"
