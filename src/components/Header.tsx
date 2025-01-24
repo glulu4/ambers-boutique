@@ -28,7 +28,9 @@ export const Header: FunctionComponent = (...other) => {
   
 
   const navigationItems = [
+    {name: "Our Story", href: "/our-story"},
     {name: "Cart", href: "/cart"},
+
     {
       name: "Products",
       items: categories.map((cat) => ({

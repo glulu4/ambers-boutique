@@ -22,9 +22,9 @@ const Page = async () => {
 
       <HeroSection />
 
-      <OurStory/>
+      {/* <OurStory/> */}
 
-      <div >
+      <div className="pt-16">
         
         <CategoryProducts productsByCategory={productsByCategory}/>
       </div>
