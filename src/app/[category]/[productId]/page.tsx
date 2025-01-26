@@ -1,57 +1,3 @@
-// // import {getProductById} from "@/utils/stripeHelpers";
-// // import {StripeProductData} from "@/types/types";
-// // import ProductDisplay from "@/components/ProductDisplay";
-
-// // export const dynamic = "force-dynamic"; // Allow dynamic generation of pages
-
-// // const ProductPage = async ({params}: {params: {category: string; productId: string}}) => {
-// //     const {productId} = await params;
-    
-// //     const product: StripeProductData | undefined = await getProductById(productId);
-
-// //     if (!product) {
-// //         return <div>Product not found</div>;
-// //     }
-
-// //     return (
-// //         <div>
-// //             <ProductDisplay product={product}/>
-// //         </div>
-// //     );
-// // };
-
-// // export default ProductPage;
-// import {getProductById} from "@/utils/stripeHelpers";
-// import {StripeProductData} from "@/types/types";
-// import ProductDisplay from "@/components/ProductDisplay";
-
-// export const dynamic = "force-dynamic"; // Allow dynamic generation of pages
-
-// interface ProductPageProps {
-//     params: {
-//         category: string;
-//         productId: string;
-//     };
-// }
-
-// const ProductPage = async ({params}: ProductPageProps) => {
-//     const {productId} = params;
-
-//     // Fetch the product using the productId
-//     const product: StripeProductData | undefined = await getProductById(productId);
-
-//     if (!product) {
-//         return <div>Product not found</div>;
-//     }
-
-//     return (
-//         <div>
-//             <ProductDisplay product={product} />
-//         </div>
-//     );
-// };
-
-// export default ProductPage;
 type Params = Promise<{category: string; productId: string}>;
 
 interface ProductPageProps {
@@ -62,6 +8,7 @@ interface ProductPageProps {
 import {getProductById} from "@/utils/stripeHelpers";
 import {StripeProductData} from "@/types/types";
 import ProductDisplay from "@/components/ProductDisplay";
+import Head from "next/head";
 
 // export const dynamic = "force-dynamic"; // Allow dynamic generation of pages
 
@@ -77,6 +24,14 @@ const ProductPage = async ({params}: ProductPageProps) => {
 
     return (
         <div>
+            <Head>
+                <title>{product.name} - Amber's Boutique</title>
+                <meta name="description" content={product.description || ""} />
+                <meta property="og:title" content={`${product.name} - Amber's Boutique`} />
+                <meta property="og:description" content={product.description || ""} />
+                <meta property="og:image" content={product.images[0] || ""} />
+                <meta property="og:type" content="product" />
+            </Head>
             <ProductDisplay product={product} />
         </div>
     );

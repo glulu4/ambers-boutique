@@ -1,10 +1,15 @@
 import OurStory from '@/components/OurStory'
 import HeaderText from '@/components/text/HeaderText'
+import {config} from '@/config'
+import Head from 'next/head'
 import React from 'react'
 
 export default function page() {
   return (
     <div>
+          <Head>
+              <title>{config.name.name} | {config.name.metadata.description}</title>
+          </Head>
           <OurStory />
 
           <div>
