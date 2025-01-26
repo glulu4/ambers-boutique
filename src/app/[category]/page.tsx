@@ -7,6 +7,7 @@ import {categories} from "@/types/categories";
 
 // export const dynamic = "force-dynamic"; // Allow dynamic generation of pages
 
+export const revalidate = 43200; 
 
 type Params = Promise<{category: string}>;
 
