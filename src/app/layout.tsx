@@ -44,17 +44,17 @@ const fontAccent = Corinthia({
 
 export const metadata: Metadata = {
   title: {
-    absolute: config.blog.metadata.title.absolute,
-    default: config.blog.metadata.title.default,
-    template: config.blog.metadata.title.template,
+    absolute: "Vintage Chanel Jewelry - Amber's Boutique",
+    default: "Amber's Boutique - Vintage Chanel Jewelry",
+    template: "%s | Vintage Chanel Jewelry",
   },
-  description: config.blog.metadata.description,
+  description: "Discover unique and authentic vintage Chanel jewelry at Amber's Boutique. Shop our collection of timeless pieces crafted from vintage Chanel buttons.",
   openGraph: {
-    title: config.blog.metadata.title.default,
-    description: config.blog.metadata.description,
-    images: [
+    title: "Amber's Boutique - Vintage Chanel Jewelry",
+    description: "Explore our exclusive collection of vintage Chanel jewelry. Each piece is a timeless treasure crafted from authentic Chanel buttons.",    images: [
       signOgImageUrl({
-        title: config.blog.name,
+        title: "Amber's Jewelry Boutique - Vintage Chanel Jewelry",
+
       }),
     ]
   }
@@ -98,18 +98,7 @@ export default function RootLayout({
               </main>
             </CartProvider>
           </TanProviders>
-          {/* <main>
-            <Header />
-            <TanProviders>
 
-              <CartProvider>
-                {children}
-              </CartProvider>
-             
-            </TanProviders>
-            
-            <Footer />
-            </main> */}
         </Providers>
       </body>
     </html>
