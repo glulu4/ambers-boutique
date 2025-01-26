@@ -1,6 +1,7 @@
 import AllProductsCta from "@/components/AllProductsCta";
 import CategoryProducts from "@/components/CategoryProducts";
 import HeroSection from "@/components/landing/HeroSection";
+import OurProcess from "@/components/landing/OurProcess";
 
 import {StripeProductData, StripeProductList} from "@/types/types";
 import {getProductPerCategory} from "@/utils/stripeHelpers";
@@ -17,6 +18,8 @@ const Page = async () => {
         
         <CategoryProducts productsByCategory={productsByCategory}/>
       </div>
+
+      <OurProcess />
 
       <div className=" mt-20 rounded-sm">
         <AllProductsCta/>
