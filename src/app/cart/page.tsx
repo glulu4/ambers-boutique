@@ -12,42 +12,6 @@ import Image from 'next/image'
 import {useRouter} from "next/navigation";
 import toast from 'react-hot-toast'
 
-// const products = [
-//     {
-//         id: 1,
-//         name: 'Basic Tee',
-//         href: '#',
-//         price: '$32.00',
-//         color: 'Sienna',
-//         inStock: true,
-//         size: 'Large',
-//         imageSrc: 'https://tailwindui.com/plus/img/ecommerce-images/shopping-cart-page-01-product-01.jpg',
-//         imageAlt: "Front of men's Basic Tee in sienna.",
-//     },
-//     {
-//         id: 2,
-//         name: 'Basic Tee',
-//         href: '#',
-//         price: '$32.00',
-//         color: 'Black',
-//         inStock: false,
-//         leadTime: '3–4 weeks',
-//         size: 'Large',
-//         imageSrc: 'https://tailwindui.com/plus/img/ecommerce-images/shopping-cart-page-01-product-02.jpg',
-//         imageAlt: "Front of men's Basic Tee in black.",
-//     },
-//     {
-//         id: 3,
-//         name: 'Nomad Tumbler',
-//         href: '#',
-//         price: '$35.00',
-//         color: 'White',
-//         inStock: true,
-//         imageSrc: 'https://tailwindui.com/plus/img/ecommerce-images/shopping-cart-page-01-product-03.jpg',
-//         imageAlt: 'Insulated bottle with white base and black snap lid.',
-//     },
-// ]
-
 export default function Page() {
 
     const {addItemToCart, cart, updateItemQuantity, removeItemFromCart, getCartPrice, getLineItems} = useCart();
@@ -117,7 +81,7 @@ export default function Page() {
     return (
         <div className="">
             <Head>
-                <title>Shopping Cart - Amber's Boutique</title>
+                <title>Shopping Cart - Amber&apos;s Boutique</title>
                 <meta name="description" content="Review the items in your shopping cart and proceed to checkout at Amber's Boutique. Discover our unique and authentic vintage Chanel jewelry collection." />
                 <meta property="og:title" content="Shopping Cart - Amber's Boutique" />
                 <meta property="og:description" content="Review the items in your shopping cart and proceed to checkout at Amber's Boutique. Discover our unique and authentic vintage Chanel jewelry collection." />

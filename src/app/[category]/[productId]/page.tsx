@@ -25,7 +25,7 @@ const ProductPage = async ({params}: ProductPageProps) => {
     return (
         <div>
             <Head>
-                <title>{product.name} - Amber's Boutique</title>
+                <title>{product.name} - Amber&apos;s Boutique</title>
                 <meta name="description" content={product.description || ""} />
                 <meta property="og:title" content={`${product.name} - Amber's Boutique`} />
                 <meta property="og:description" content={product.description || ""} />

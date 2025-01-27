@@ -39,7 +39,7 @@ const CategoryPage = async ({params}: CategoryPageProps) => {
         <div className=" py-10">
 
             <Head>
-                <title>{capitalizeFirstLetter(category)} - Amber's Boutique</title>
+                <title>{capitalizeFirstLetter(category)} - Amber&apos;s Boutique</title>
                 <meta name="description" content={`Explore our collection of ${category} at Amber's Boutique.`} />
             </Head>
             <HeaderText size="large" className=" pb-12 text-left">

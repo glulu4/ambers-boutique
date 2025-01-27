@@ -11,7 +11,7 @@ const OurProcess = () => {
 
             <div className='my-12 leading-loose sm:leading-[3rem] space-y-8 font-secHeading'>
                 <SecondaryText size='large' className='font-secHeading'>
-                    At Amber's Boutique, we take pride in our meticulous process of transforming vintage Chanel buttons into exquisite jewelry pieces. Our process begins with sourcing authentic vintage Chanel buttons, each carrying its own unique history and charm.
+                    At Amber&apos;s Boutique, we take pride in our meticulous process of transforming vintage Chanel buttons into exquisite jewelry pieces. Our process begins with sourcing authentic vintage Chanel buttons, each carrying its own unique history and charm.
 
                     Once sourced, we carefully clean and restore each button, preserving its original beauty while preparing it for its new life as a piece of jewelry. We then design and craft each item with precision and care, ensuring that every piece of vintage Chanel jewelry we create is a timeless treasure.
 

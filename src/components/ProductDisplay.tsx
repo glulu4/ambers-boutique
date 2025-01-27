@@ -9,6 +9,7 @@ import HeaderText from './text/HeaderText'
 import SecondaryText from './text/SecondaryText'
 import {useCart} from '@/context/cartContext'
 import {notifyItemAddedToCart} from '@/utils/util'
+import Image from 'next/image'
 
 
 
@@ -70,7 +71,12 @@ export default function ProductDisplay({product}: {product: StripeProductData}) 
 
                 {/* Product image */}
                 <div className="mt-10 lg:col-start-2 lg:row-span-2 lg:mt-0 lg:self-center">
-                    <img alt={getProductType(product)} src={product.images[0]} className="aspect-square w-full rounded-lg object-cover" />
+                    <Image 
+                    width={500}
+                    height={500}
+                    alt={`Image of ${product.name}| Amber's Jewelry Boutique | Vintage Chanel Jewelry`}
+                    src={product.images[0]} 
+                    className="aspect-square w-full rounded-lg object-cover" />
                 </div>
 
                 {/* Product form */}
