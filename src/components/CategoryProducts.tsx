@@ -14,7 +14,7 @@ const CategoryProducts = ({
 
 
     return (
-        <div className="space-y-20 ">
+        <div className="space-y-20 pt-6 sm:pt-24 md:pt-32 lg:pt-40 ">
             <HeaderText size='large' className='pb-10'>
                 Shop Our Products
             </HeaderText>
