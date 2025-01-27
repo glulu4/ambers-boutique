@@ -63,10 +63,13 @@ const Page = async () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-10 space-y-16">
 
         {/* Hero Section */}
-        <HeroSection />
+        <div className="pb-24">
+          <HeroSection />
+
+        </div>
 
         {/* Category Products */}
-        <div className="pt-36 sm:pt-20 md:pt-24">
+        <div className="mt-60 sm:pt-20 md:pt-24">
           <CategoryProducts productsByCategory={productsByCategory} />
         </div>
 

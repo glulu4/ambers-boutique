@@ -45,7 +45,7 @@ const HeaderText: React.FC<HeaderTextProps> = ({
 
     return (
         <h1
-            className={`${sizeClasses[size]} font-heading  leading-snug md:leading-loose ${className}`}
+            className={`${sizeClasses[size]} font-heading  leading-snug ${className}`}
             {...props} // Spread all other props
         >
             {children}
