@@ -6,9 +6,9 @@ import {capitalizeFirstLetter} from "@/utils/util";
 import {categories} from "@/types/categories";
 import Head from "next/head";
 
-// export const dynamic = "force-dynamic"; // Allow dynamic generation of pages
+export const dynamic = "force-dynamic"; // Allow dynamic generation of pages
 
-export const revalidate = 0; 
+// export const revalidate = 86400; 
 
 type Params = Promise<{category: string}>;
 
