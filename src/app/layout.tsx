@@ -44,16 +44,16 @@ const fontAccent = Corinthia({
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Vintage Chanel Jewelry - Amber's Boutique",
-    default: "Amber's Boutique - Vintage Chanel Jewelry",
-    template: "%s | Vintage Chanel Jewelry",
+    absolute: "Vintage Jewelry - Amber's Boutique",
+    default: "Amber's Boutique - Vintage Jewelry",
+    template: "%s | Vintage  Jewelry",
   },
-  description: "Discover unique and authentic vintage Chanel jewelry at Amber's Boutique. Shop our collection of timeless pieces crafted from vintage Chanel buttons.",
+  description: "Discover unique and authentic vintage jewelry at Amber's Boutique. Shop our collection of timeless pieces crafted from vintage  buttons.",
   openGraph: {
-    title: "Amber's Boutique - Vintage Chanel Jewelry",
-    description: "Explore our exclusive collection of vintage Chanel jewelry. Each piece is a timeless treasure crafted from authentic Chanel buttons.",    images: [
+    title: "Amber's Boutique - Vintage  Jewelry",
+    description: "Explore our exclusive collection of vintage jewelry. Each piece is a timeless treasure crafted from authentic buttons.", images: [
       signOgImageUrl({
-        title: "Amber's Jewelry Boutique - Vintage Chanel Jewelry",
+        title: "Amber's Jewelry Boutique - Vintage Jewelry",
 
       }),
     ]
