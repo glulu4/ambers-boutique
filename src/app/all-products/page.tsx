@@ -59,11 +59,15 @@ import Link from "next/link";
 export const revalidate = 300; // Revalidate every 5 minutes
 const PER_PAGE = 20;
 
-const Page = async ({searchParams}: {searchParams: {cursor?: string}}) => {
+interface PageProps {
+    searchParams: Promise<{cursor?: string}>;
+}
+
+const Page = async ({searchParams}: PageProps) => {
 
     // Fetch all products
 
-    const cursor = searchParams.cursor;
+    const { cursor } = await searchParams;
 
     const {products, nextCursor} = await getAllProductsPaginated( PER_PAGE ,cursor);
 

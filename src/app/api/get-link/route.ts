@@ -1,6 +1,6 @@
 
 import {NextRequest, NextResponse} from "next/server";
-import {createPaymentLink, createSessionLink} from "@/utils/stripeHelpers";
+import {createSessionLink} from "@/utils/stripeHelpers";
 
 
 export async function POST(request: NextRequest) {
