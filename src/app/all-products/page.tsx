@@ -9,6 +9,7 @@ import Head from "next/head";
 import {config} from "@/config";
 
 
+export const revalidate = 43200;
 
 const Page = async () => {
 

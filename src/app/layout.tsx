@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   },
   description: "Discover unique and authentic vintage jewelry at Amber's Boutique. Shop our collection of timeless pieces crafted from vintage  buttons.",
   openGraph: {
-    title: "Amber's Boutique - Vintage  Jewelry",
+    title: "Amber's Boutique - Vintage Jewelry",
     description: "Explore our exclusive collection of vintage jewelry. Each piece is a timeless treasure crafted from authentic buttons.", images: [
       signOgImageUrl({
         title: "Amber's Jewelry Boutique - Vintage Jewelry",
@@ -65,6 +65,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const mode = process.env.MODE;
+  console.log("Mode: ", mode);
+  
   return (
     <html lang="en">
       <body

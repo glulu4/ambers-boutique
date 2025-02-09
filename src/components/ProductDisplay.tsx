@@ -33,7 +33,7 @@ export default function ProductDisplay({product}: {product: StripeProductData}) 
     return (
         <>
               <Head>
-        <title>{product.name} - Amber&apos;s Jewelry Boutique | Vintage Chanel Jewelry</title>
+        <title>{product.name} - Amber&apos;s Jewelry Boutique | Vintage Jewelry</title>
         <meta
           name="description"
           content={`Discover ${product.name}, a unique and authentic vintage Chanel piece available at Amber's Jewelry Boutique. ${product.description}`}
@@ -55,7 +55,7 @@ export default function ProductDisplay({product}: {product: StripeProductData}) 
               },
               brand: {
                 "@type": "Brand",
-                name: "Chanel",
+                name: "Amber's Jewelry Boutique",
               },
             }),
           }}
@@ -107,7 +107,7 @@ export default function ProductDisplay({product}: {product: StripeProductData}) 
                         <Image
                             width={500}
                             height={500}
-                            alt={`Image of ${product.name}| Amber's Jewelry Boutique | Vintage Chanel Jewelry`}
+                            alt={`Image of ${product.name}| Amber's Jewelry Boutique | Vintage Jewelry`}
                             src={product.images[0]}
                             className="aspect-square w-full rounded-lg object-cover" />
                     </div>

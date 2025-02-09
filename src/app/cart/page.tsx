@@ -82,9 +82,9 @@ export default function Page() {
         <div className="">
             <Head>
                 <title>Shopping Cart - Amber&apos;s Boutique</title>
-                <meta name="description" content="Review the items in your shopping cart and proceed to checkout at Amber's Boutique. Discover our unique and authentic vintage Chanel jewelry collection." />
+                <meta name="description" content="Review the items in your shopping cart and proceed to checkout at Amber's Boutique. Discover our unique and authentic vintage jewelry collection." />
                 <meta property="og:title" content="Shopping Cart - Amber's Boutique" />
-                <meta property="og:description" content="Review the items in your shopping cart and proceed to checkout at Amber's Boutique. Discover our unique and authentic vintage Chanel jewelry collection." />
+                <meta property="og:description" content="Review the items in your shopping cart and proceed to checkout at Amber's Boutique. Discover our unique and authentic vintage jewelry collection." />
             </Head>
             <div className="pt-20">
                 <HeaderText size='large' className="">
@@ -101,7 +101,7 @@ export default function Page() {
                                 <li key={productIdx} className="flex py-6 sm:py-10">
                                     <div className="shrink-0">
                                         <Image
-                                            alt="Chanel Button Jewelry"
+                                            alt="Amber's Jewelry Boutique"
                                             src={getProductImg(cartItem.stripeData)}
                                             className="size-24 rounded-md object-cover sm:size-48"
                                             width={100}

@@ -77,7 +77,7 @@ export default function OurStory() {
           Enthralled by their beauty and history, I began collecting these exquisite treasures, each one a piece of Parisian legacy.
 
           Upon returning home, I shared my newfound passion with my mom. Together, we saw an opportunity to blend our love for design and entrepreneurship.
-          Inspired by the idea of making luxury accessible to everyone, we embarked on a journey to transform these vintage buttons into stunning pieces of jewelry, including vintage Chanel jewelry.
+          Inspired by the idea of making luxury accessible to everyone, we embarked on a journey to transform these vintage buttons into stunning pieces of jewelry, including vintage jewelry.
 
           Thus, Amber&apos;s Jewelry Boutique was born – a mother-daughter venture fueled by a shared love for craftsmanship and a desire to spread joy through wearable art.
         </SecondaryText>
@@ -90,7 +90,7 @@ export default function OurStory() {
           offering affordable luxury that transcends
           boundaries. Each button in our collection is
           carefully curated from the streets of Paris,
-          including our exclusive vintage Chanel jewelry pieces.
+          including our exclusive vintage jewelry pieces.
         </SecondaryText>
       </div>
     </div>

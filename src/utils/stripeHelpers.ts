@@ -161,9 +161,9 @@ export async function getCategories(): Promise<string[]> {
 export async function fetchAllProducts(): Promise<StripeProductList> {
 
   try {
-    const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY!)
-
+    const stripe = getStripe();
     if (!stripe) throw new Error("Stripe object is null");
+
     const products: StripeProductList = await stripe.products.list({expand: ['data.default_price']});
 
     return products;
@@ -187,8 +187,9 @@ export async function getProductPerCategory() {
   const productsByCategory: Record<string, StripeProductData[]> = {};
   
   try {
-    const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY!)
+    const stripe = getStripe();
     if (!stripe) throw new Error("Stripe object is null");
+
     const productList: StripeProductList = await stripe.products.list({
       expand: ['data.default_price'],
       limit: 100,

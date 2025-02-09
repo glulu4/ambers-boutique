@@ -1,5 +1,6 @@
 export const categories: string[] = [
-    "earrings", 
+    "earring", 
     "bracelet", 
-    "necklace"
+    "necklace",
+    "pin",
 ]

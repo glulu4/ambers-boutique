@@ -8,7 +8,7 @@ import {StripeProductData} from "@/types/types";
 import {getProductPerCategory} from "@/utils/stripeHelpers";
 import Head from "next/head";
 
-export const revalidate = 86400;
+export const revalidate = 43200;
 
 const Page = async () => {
   const productsByCategory: Record<string, StripeProductData[]> = await getProductPerCategory();

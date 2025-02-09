@@ -9,7 +9,7 @@ export default function Thanks() {
         <Image
         width={500}
         height={500}
-          alt="Vintage Chanel Jewelry"
+          alt="Vintage Jewelry"
           src="/images/img2.jpg"
                   className="size-full object-cover 
 
