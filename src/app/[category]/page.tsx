@@ -77,8 +77,10 @@ import Link from "next/link";
 
 export const revalidate = 300; // Revalidate every 5 min
 
+
+
 interface CategoryPageProps {
-    params: {category: string};
+    params: Promise<{category: string}>;
     searchParams: {page?: string};
 }
 
@@ -89,7 +91,7 @@ export const generateStaticParams = async () => {
 const PER_PAGE = 20; // Adjust per your needs
 
 const CategoryPage = async ({params, searchParams}: CategoryPageProps) => {
-    const {category} = params;
+    const {category} = await params;
     const currentPage = Number(searchParams.page) || 1;
 
     // Fetch filtered and paginated products
