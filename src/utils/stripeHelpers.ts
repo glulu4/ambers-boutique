@@ -3,6 +3,58 @@ import {getShippingRateId, getStripe} from "./getStripe";
 import {capitalizeFirstLetter, formatCurrency} from "./util";
 import {get} from "http";
 
+
+
+export async function getAllProductsPaginated(perPage:number, cursor?: string): Promise<{products: StripeProductData[], nextCursor?: string}> {
+  const stripe = getStripe();
+  if (!stripe) throw new Error("Stripe object is null");
+
+  // Call Stripe API to get products
+  const response = await stripe.products.list({
+    limit: perPage, // Fetch 20 products at a time
+    expand: ["data.default_price"],
+    starting_after: cursor || undefined, // First call doesn't supply cursor
+  });
+
+  // Get the last product's ID to use as the next cursor
+  const nextCursor = response.has_more ? response.data[response.data.length - 1].id : undefined;
+
+  return {
+    products: response.data,
+    nextCursor,
+  };
+}
+
+// export async function getAllProductsPaginated(cursor?: string): Promise<StripeProductData[]> {
+//   const stripe = getStripe();
+//   if (!stripe) throw new Error("Stripe object is null");
+
+//   let allProducts: StripeProductData[] = [];
+//   let hasMore = true;
+//   let startingAfter:string = cursor || "";
+  
+
+//   while (hasMore) {
+//     const productList = await stripe.products.list({
+//       expand: ["data.default_price"],
+//       limit: 100, // Stripe's max limit per request
+//       starting_after: startingAfter || "", // Pagination cursor
+//     });
+
+//     allProducts = [...allProducts, ...productList.data];
+//     hasMore = productList.has_more;
+
+//     // Move cursor forward
+//     if (hasMore) {
+//       startingAfter = productList.data[productList.data.length - 1].id;
+//     }
+//   }
+
+//   return allProducts;
+// }
+
+
+
 export async function createSessionLink(lineItems: LineItem[], successUrl:string, cancelUrl:string): Promise<string> {
   try {
     const stripe = getStripe();
@@ -37,31 +89,34 @@ export async function createSessionLink(lineItems: LineItem[], successUrl:string
   }
 }
 
-export async function createPaymentLink(lineItems: LineItem[]): Promise<StripePaymentLinkResponseObj> {
+export async function getAllProducts(): Promise<StripeProductData[]> {
   try {
     const stripe = getStripe();
     if (!stripe) throw new Error("Stripe object is null");
 
-    console.log("in helper");
-    
-    const paymentLink: StripePaymentLinkResponseObj = await stripe.paymentLinks.create({
-      line_items: lineItems,
-      shipping_address_collection: {
-        allowed_countries: ["US", "CA", "GB"], // Specify the countries where shipping is available
-      },
-      automatic_tax: {
-        enabled: true,
-      },
+    let allProducts: StripeProductData[] = [];
+    let hasMore = true;
+    let startingAfter: string | undefined = undefined;
 
+    while (hasMore) {
+      const productList: StripeProductList = await stripe.products.list({
+        expand: ["data.default_price"],
+        limit: 100,
+        starting_after: startingAfter, // Use the last product ID for pagination
+      });
 
-    });
-    console.log("returning: ", paymentLink.url);
-    
-    return paymentLink;
+      allProducts = [...allProducts, ...productList.data];
+      hasMore = productList.has_more;
 
+      if (hasMore) {
+        startingAfter = productList.data[productList.data.length - 1].id; // Get last product ID
+      }
+    }
+
+    return allProducts;
   } catch (error) {
-    console.log("Error: ", error);
-    return {} as StripePaymentLinkResponseObj
+    console.error("Error fetching all products:", error);
+    return [];
   }
 }
 
@@ -72,11 +127,13 @@ export async function getProductsByCategory(category:string):Promise<StripeProdu
   try {
     const stripe = getStripe();
     if (!stripe) throw new Error("Stripe object is null");
-    const productList: StripeProductList = await stripe.products.list({
-      expand: ['data.default_price'],
-      limit: 100,
-    });
-    const products: StripeProductData[]  = productList.data;
+    // const productList: StripeProductList = await stripe.products.list({
+    //   expand: ['data.default_price'],
+    //   limit: 100,
+    // });
+    // const products: StripeProductData[]  = productList.data;
+    const products: StripeProductData[] = await getAllProducts();
+
 
     for (const product of products){
 
@@ -105,6 +162,27 @@ export async function getProductsByCategory(category:string):Promise<StripeProdu
   
 }
 
+export async function getProductsByCategoryPaginated(category: string, page: number = 1, perPage: number = 20): Promise<{products: StripeProductData[], totalPages: number}> {
+  const stripe = getStripe();
+  if (!stripe) throw new Error("Stripe object is null");
+
+  // Fetch all products at once
+  const allProducts: StripeProductData[] = await getAllProducts();
+
+  // Filter only products matching the requested category
+  const filteredProducts = allProducts.filter((product) => product.metadata.type === category);
+
+  // Paginate manually
+  const totalPages = Math.ceil(filteredProducts.length / perPage);
+  const paginatedProducts = filteredProducts.slice((page - 1) * perPage, page * perPage);
+
+  return {
+    products: paginatedProducts,
+    totalPages,
+  };
+}
+
+
 export async function getProductById(id: string): Promise<StripeProductData | undefined> {
 
   try {
@@ -127,61 +205,6 @@ export async function getProductById(id: string): Promise<StripeProductData | un
   
 }
 
-export async function getCategories(): Promise<string[]> {
-  try {
-    const stripe = getStripe();
-    if (!stripe) throw new Error("Stripe object is null");
-
-    // Fetch all products from Stripe
-    const productList: StripeProductList = await stripe.products.list({
-      expand: ["data.default_price"],
-      limit: 100,
-    });
-
-    const products: StripeProductData[] = productList.data;
-
-    // Use a Set to store unique categories
-    const categories = new Set<string>();
-
-    for (const product of products) {
-      const productType: string = product.metadata.type;
-      if (productType) {
-        categories.add(productType);
-      }
-    }
-
-    // Convert the Set to an array and return
-    return Array.from(categories);
-
-  } catch (error) {
-    console.error("Error fetching categories:", error);
-    return [];
-  }
-}
-
-
-
-export async function fetchAllProducts(): Promise<StripeProductList> {
-
-  try {
-    const stripe = getStripe();
-    if (!stripe) throw new Error("Stripe object is null");
-
-    const products: StripeProductList = await stripe.products.list({
-      expand: ['data.default_price'],
-      limit: 100,
-    });
-
-    return products;
-  } catch (error) {
-    console.log("Error: ", error);
-  
-    return {} as StripeProductList
-  }
-
-
-  
-}
 
 
 /**
@@ -196,11 +219,13 @@ export async function getProductPerCategory() {
     const stripe = getStripe();
     if (!stripe) throw new Error("Stripe object is null");
 
-    const productList: StripeProductList = await stripe.products.list({
-      expand: ['data.default_price'],
-      limit: 100,
-    });
-    const products: StripeProductData[]  = productList.data;
+    // const productList: StripeProductList = await stripe.products.list({
+    //   expand: ['data.default_price'],
+    //   limit: 100,
+    // });
+    // const products: StripeProductData[]  = productList.data;
+    const products: StripeProductData[] = await getAllProducts();
+
 
     for (const product of products){
 

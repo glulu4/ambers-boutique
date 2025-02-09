@@ -21,7 +21,7 @@ const CategoryProducts = ({
             {Object.entries(productsByCategory).map(([category, products]) => (
                 <div key={category} className="space-y-6">
                     <div className="flex items-center justify-between">
-                        <HeaderText className="">{capitalizeFirstLetter(category)}&apos;s</HeaderText>
+                        <HeaderText className="">{capitalizeFirstLetter(category)}s</HeaderText>
 
                         <Link
                             href={`/${encodeURIComponent(category)}`}
@@ -34,12 +34,6 @@ const CategoryProducts = ({
                         </Link>
 
                     </div>
-
-                    {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {products.map((product) => (
-                            <ProductCard key={product.id} product={product} />
-                        ))}
-                    </div> */}
 
                     <div className="flex overflow-x-auto md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 pb-4">
                         {products.map((product) => (

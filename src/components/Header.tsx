@@ -33,10 +33,10 @@ export const Header: FunctionComponent = (...other) => {
 
     {
       name: "Products",
-      items: categories.map((cat) => ({
+      items: [...categories.map((cat) => ({
         name: capitalizeFirstLetter(cat),
         href: `/${cat}`,
-      })),
+      })), {name: "All Products", href: "/all-products"}],
     },
   ];
 
