@@ -49,10 +49,9 @@
 // export default Page;
 
 
-import {getAllProducts, getAllProductsPaginated} from "@/utils/stripeHelpers";
+import {getAllProductsPaginated} from "@/utils/stripeHelpers";
 import ProductCard from "@/components/ProductCard";
 import HeaderText from "@/components/text/HeaderText";
-import {StripeProductData} from "@/types/types";
 import Head from "next/head";
 import {config} from "@/config";
 import Link from "next/link";

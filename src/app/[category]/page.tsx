@@ -67,7 +67,7 @@
 
 
 
-import {getProductsByCategory, getProductsByCategoryPaginated} from "@/utils/stripeHelpers";
+import {getProductsByCategoryPaginated} from "@/utils/stripeHelpers";
 import ProductCard from "@/components/ProductCard";
 import HeaderText from "@/components/text/HeaderText";
 import {capitalizeFirstLetter} from "@/utils/util";
