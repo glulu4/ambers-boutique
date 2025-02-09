@@ -21,7 +21,7 @@ const CategoryProducts = ({
             {Object.entries(productsByCategory).map(([category, products]) => (
                 <div key={category} className="space-y-6">
                     <div className="flex items-center justify-between">
-                        <HeaderText className="">{capitalizeFirstLetter(category)}</HeaderText>
+                        <HeaderText className="">{capitalizeFirstLetter(category)}&apos;s</HeaderText>
 
                         <Link
                             href={`/${encodeURIComponent(category)}`}

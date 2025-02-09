@@ -3,4 +3,5 @@ export const categories: string[] = [
     "bracelet", 
     "necklace",
     "pin",
+    "ring",
 ]

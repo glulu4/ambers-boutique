@@ -9,7 +9,7 @@ import Head from "next/head";
 import {config} from "@/config";
 
 
-export const revalidate = 43200;
+export const dynamic = "force-dynamic";
 
 const Page = async () => {
 

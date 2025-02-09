@@ -17,3 +17,12 @@ export function getStripe() {
     const stripe = require('stripe')(stripeSecretKey);
     return stripe;
 }
+
+
+export function getShippingRateId() {
+    const shippingRate = process.env.MODE === "live"
+        ? process.env.STRIPE_LIVE_SHIPPING_RATE  // Use live mode key
+        : process.env.STRIPE_TEST_SHIPPING_RATE; // Use test mode key
+
+    return shippingRate;
+}

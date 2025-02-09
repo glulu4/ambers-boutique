@@ -50,7 +50,7 @@ const HeroSection = () => {
                         <HeaderText size="large" className="text-white mb-6 font-semibold">
                             Unique and <br />
                             <span className="italic">Authentic</span> <br />
-                            Vintage <span className="italic">Designer</span> Jewellery
+                            Vintage <span className="italic">Designer</span> Jewelry
                         </HeaderText>
                     </div>
                 </div>

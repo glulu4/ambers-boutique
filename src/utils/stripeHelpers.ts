@@ -1,11 +1,14 @@
 import {LineItem, StripePaymentLinkResponseObj, StripeProductData, StripeProductList} from "@/types/types";
-import {getStripe} from "./getStripe";
+import {getShippingRateId, getStripe} from "./getStripe";
 import {capitalizeFirstLetter, formatCurrency} from "./util";
+import {get} from "http";
 
 export async function createSessionLink(lineItems: LineItem[], successUrl:string, cancelUrl:string): Promise<string> {
   try {
     const stripe = getStripe();
     if (!stripe) throw new Error("Stripe object is null");
+
+    const shippingRate = getShippingRateId(); // Get your shipping rate ID
 
     const session = await stripe.checkout.sessions.create({
       success_url: successUrl,
@@ -15,7 +18,7 @@ export async function createSessionLink(lineItems: LineItem[], successUrl:string
       cancel_url: cancelUrl,   // Redirect here if canceled
       shipping_options: [
         {
-          shipping_rate: "shr_1QjpjoAuFAcoiptYtjc2IJiy", // Use your predefined shipping rate ID
+          shipping_rate: shippingRate, // Use your predefined shipping rate ID
         },
       ],
       shipping_address_collection: {
@@ -164,7 +167,10 @@ export async function fetchAllProducts(): Promise<StripeProductList> {
     const stripe = getStripe();
     if (!stripe) throw new Error("Stripe object is null");
 
-    const products: StripeProductList = await stripe.products.list({expand: ['data.default_price']});
+    const products: StripeProductList = await stripe.products.list({
+      expand: ['data.default_price'],
+      limit: 100,
+    });
 
     return products;
   } catch (error) {
