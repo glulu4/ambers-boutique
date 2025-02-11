@@ -44,7 +44,7 @@ export const Header: FunctionComponent = (...other) => {
     <section className="flex flex-row md:flex-col sm:gap-10 items-center justify-between mt-8 md:mt-16 mb-12">
       <Link href="/">
         <h1 className="text-4xl md:text-6xl font-accent font-bold leading-tight">
-          {config.name.name}
+          Amber&apos;s Jewelry Boutique
         </h1>
       </Link>
       <Navigation items={navigationItems} />
