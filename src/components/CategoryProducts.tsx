@@ -6,6 +6,10 @@ import HeaderText from './text/HeaderText';
 import SecondaryText from './text/SecondaryText';
 import {capitalizeFirstLetter} from '@/utils/util';
 
+
+export const revalidate = 300; // Revalidate every 5 min
+
+
 const CategoryProducts = ({
     productsByCategory,
 }: {

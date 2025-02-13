@@ -16,8 +16,8 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({product, className}: ProductCardProps) {
-    const {addItemToCart, cart, cartTotal} = useCart();
-    
+    const {addItemToCart} = useCart();
+
 
     const handleAddToCart = () => {
         addItemToCart({
@@ -35,15 +35,13 @@ export default function ProductCard({product, className}: ProductCardProps) {
             {/* Image Container */}
             <div className="relative aspect-square w-full overflow-hidden rounded-md bg-gray-100">
                 <Link href={getProductHref(product)}>
-                
-
-                <Image
-                    alt={product.name}
+                    <Image
+                        alt={product.name}
                         width={800}
                         height={800}
-                    src={getProductImg(product)}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                />
+                        src={getProductImg(product)}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    />
 
                 </Link>
 
@@ -64,9 +62,9 @@ export default function ProductCard({product, className}: ProductCardProps) {
             <div className="flex flex-row justify-between items-center">
                 <div className="mt-4 flex flex-col gap-2">
                     <h3 className="text-lg text-gray-700 font-semibold">
-                         {/* <span aria-hidden="true" className="absolute inset-0" /> */}
+                        {/* <span aria-hidden="true" className="absolute inset-0" /> */}
 
-                            {product.name}
+                        {product.name}
                     </h3>
                     <p className="text-md font-medium text-gray-900">
                         {getProductPrice(product)}
