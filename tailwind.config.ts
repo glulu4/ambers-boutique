@@ -1,5 +1,5 @@
-import type { Config } from "tailwindcss";
-import { fontFamily } from "tailwindcss/defaultTheme";
+import type {Config} from "tailwindcss";
+import {fontFamily} from "tailwindcss/defaultTheme";
 
 const config = {
   darkMode: ["class"],
@@ -21,23 +21,23 @@ const config = {
     extend: {
 
 
-            width: {
-  'fill': 'fill-available',
-  'webkit-fill': '-webkit-fill-available',
-  'moz-fill': '-moz-available',
-},
-height: {
-  'fill': 'fill-available',
-  'webkit-fill': '-webkit-fill-available',
-  'moz-fill': '-moz-available',
-},
+      width: {
+        'fill': 'fill-available',
+        'webkit-fill': '-webkit-fill-available',
+        'moz-fill': '-moz-available',
+      },
+      height: {
+        'fill': 'fill-available',
+        'webkit-fill': '-webkit-fill-available',
+        'moz-fill': '-moz-available',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        primaryRed:"#C42847",
+        primaryRed: "#C42847",
         primaryRedHover: "#891A30",
         primary: {
           DEFAULT: "hsl(var(--primary))",
@@ -75,12 +75,12 @@ height: {
       },
       keyframes: {
         "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
+          from: {height: "0"},
+          to: {height: "var(--radix-accordion-content-height)"},
         },
         "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
+          from: {height: "var(--radix-accordion-content-height)"},
+          to: {height: "0"},
         },
       },
       animation: {
@@ -90,7 +90,7 @@ height: {
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
         heading: ["var(--font-serif)", ...fontFamily.serif],
-        secHeading:["var(--font-sec-header)", ...fontFamily.serif],
+        secHeading: ["var(--font-sec-header)", ...fontFamily.serif],
         body: ["var(--font-body)", ...fontFamily.sans],
         accent: ["var(--font-accent)", "cursive"],
       },

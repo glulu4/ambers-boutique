@@ -121,15 +121,7 @@ export default function ProductDisplay({product}: {product: StripeProductData}) 
 
                             <form>
 
-                                <div className="mt-4">
-                                    <a href="#" className="group inline-flex text-sm text-gray-500 hover:text-gray-700">
-                                        <span>What size should I buy?</span>
-                                        <QuestionMarkCircleIcon
-                                            aria-hidden="true"
-                                            className="ml-2 size-5 shrink-0 text-gray-400 group-hover:text-gray-500"
-                                        />
-                                    </a>
-                                </div>
+        
                                 <div className="mt-10">
                                     <button
                                         onClick={(e) => {
