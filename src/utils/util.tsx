@@ -43,40 +43,6 @@ export function notifyItemAddedToCart() {
     ), {
         duration: 3000,
     });
-
-
-    // toast.custom((t) => (
-    //     <div
-    //         className={`${t.visible ? 'animate-enter' : 'animate-leave'
-    //             } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
-    //     >
-    //         <div className="flex-1 w-0 p-4 " >
-    //             <div className="flex" >
-    //                 <div className="flex-shrink-0 pt-0.5 flex items-center justify-center" >
-    //                     <Check color="#4BB543"/>
-
-    //                 </div>
-    //                 < div className="ml-3 flex-1" >
-    //                     <SecondaryText className="text-sm font-medium text-gray-900 pl-5" >
-    //                         Added to cart
-    //                     </SecondaryText>
-
-    //                 </div>
-    //             </div>
-    //         </div>
-    //         < div className="flex border-l border-gray-200" >
-    //             <Link
-    //             href="/cart"
-    //                 // onClick={() => toast.dismiss(t.id)}
-    //                 className="font-body w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-primaryRed hover:text-primaryRedHover focus:outline-none focus:ring-2"
-    //             >
-    //                 View Cart
-    //             </Link>
-    //         </div>
-    //     </div>
-    // ),{
-    //     duration: 3000,
-    // })
 }
 
 

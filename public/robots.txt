@@ -1,9 +1,17 @@
-# *
+# Allow all user-agents
 User-agent: *
 Allow: /
 
-# Host
+# Explicitly allow Googlebot to crawl everything
+User-agent: Googlebot
+Allow: /
+
+# Explicitly allow Googlebot-Image to crawl images
+User-agent: Googlebot-Image
+Allow: /
+
+# Specify preferred host
 Host: https://www.ambersjewelryboutique.com
 
-# Sitemaps
+# Sitemap location for better indexing
 Sitemap: https://www.ambersjewelryboutique.com/sitemap.xml
