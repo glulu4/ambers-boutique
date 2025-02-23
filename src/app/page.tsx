@@ -16,28 +16,6 @@ const Page = async () => {
   const productsByCategory: Record<string, StripeProductData[]> = await getProductPerCategory();
 
 
-  async function logic(){
-    const allProducts: StripeProductData[] = await getAllProducts();
-    const ids = allProducts.map((product) => product.id);
-
-    console.log(ids);
-    
-
-    const stripe = await getStripe();
-
-    for (const id of ids) {
-
-      const price = await stripe.prices.list({  product: id });
-
-
-      const product = await stripe.products.del(id);
-      console.log(product);
-    }
-
-
-  }
-
-  logic();
 
   return (
     <>

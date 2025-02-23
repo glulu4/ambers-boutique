@@ -37,7 +37,7 @@ const fontAccent = Corinthia({
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Vintage Jewelry - Amber's Jewelry Boutique",
+    absolute: "Amber's Jewelry Boutique",
     default: "Amber's Jewelry Boutique - Vintage Jewelry",
     template: "%s | Vintage Jewelry",
   },
