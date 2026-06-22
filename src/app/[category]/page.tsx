@@ -3,7 +3,7 @@ import ProductCard from "@/components/ProductCard";
 import HeaderText from "@/components/text/HeaderText";
 import {capitalizeFirstLetter} from "@/utils/util";
 import {categories} from "@/types/categories";
-import Head from "next/head";
+import type {Metadata} from "next";
 import Link from "next/link";
 
 export const revalidate = 300; // Revalidate every 5 min
@@ -18,6 +18,15 @@ interface CategoryPageProps {
 export const generateStaticParams = async () => {
     return categories.map(category => ({category}));
 };
+
+export async function generateMetadata({params}: CategoryPageProps): Promise<Metadata> {
+    const {category} = await params;
+    const name = capitalizeFirstLetter(category);
+    return {
+        title: `${name}s`,
+        description: `Explore our collection of vintage ${category}s at Amber's Jewelry Boutique.`,
+    };
+}
 
 const PER_PAGE = 20; // Adjust per your needs
 
@@ -35,10 +44,6 @@ const CategoryPage = async ({params, searchParams}: CategoryPageProps) => {
 
     return (
         <div className="py-10">
-            <Head>
-                <title>{capitalizeFirstLetter(category)} - Amber&apos;s Boutique</title>
-                <meta name="description" content={`Explore our collection of ${category} at Amber's Boutique.`} />
-            </Head>
             <HeaderText size="large" className="pb-12 text-left">
                 {capitalizeFirstLetter(category)}s
             </HeaderText>

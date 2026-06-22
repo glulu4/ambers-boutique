@@ -1,6 +1,12 @@
 import HeaderText from '@/components/text/HeaderText'
 import SecondaryText from '@/components/text/SecondaryText'
+import type {Metadata} from 'next'
 import React from 'react'
+
+export const metadata: Metadata = {
+  title: 'Return Policy',
+  description: "Read the return and refund policy for Amber's Jewelry Boutique.",
+}
 
 export default function page() {
 

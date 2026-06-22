@@ -36,6 +36,9 @@ const fontAccent = Corinthia({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_BASE_URL || "https://www.ambersjewelryboutique.com"
+  ),
   title: {
     absolute: "Amber's Jewelry Boutique",
     default: "Amber's Jewelry Boutique - Vintage Jewelry",
@@ -58,9 +61,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const mode = process.env.MODE;
-  console.log("Mode: ", mode);
-
   return (
     <html lang="en">
       <head>
@@ -149,6 +149,7 @@ export default function RootLayout({
         <Providers
           attribute="class"
           defaultTheme="light"
+          forcedTheme="light"
           disableTransitionOnChange
         >
           <TanProviders>

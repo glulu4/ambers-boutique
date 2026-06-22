@@ -7,7 +7,6 @@ import {getProductHref, getProductImg, getProductPrice} from '@/utils/stripeHelp
 import {formatCurrency, formatPrice} from '@/utils/util'
 import {ChevronDownIcon} from '@heroicons/react/16/solid'
 import {CheckIcon, ClockIcon, QuestionMarkCircleIcon, XMarkIcon} from '@heroicons/react/20/solid'
-import Head from 'next/head'
 import Image from 'next/image'
 import {useRouter} from "next/navigation";
 import toast from 'react-hot-toast'
@@ -80,12 +79,6 @@ export default function Page() {
 
     return (
         <div className="">
-            <Head>
-                <title>Shopping Cart - Amber&apos;s Boutique</title>
-                <meta name="description" content="Review the items in your shopping cart and proceed to checkout at Amber's Boutique. Discover our unique and authentic vintage jewelry collection." />
-                <meta property="og:title" content="Shopping Cart - Amber's Boutique" />
-                <meta property="og:description" content="Review the items in your shopping cart and proceed to checkout at Amber's Boutique. Discover our unique and authentic vintage jewelry collection." />
-            </Head>
             <div className="pt-20">
                 <HeaderText size='large' className="">
                     Shopping Cart

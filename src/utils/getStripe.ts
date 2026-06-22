@@ -1,10 +1,3 @@
-// export function getStripe(){
-
-//     const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY!)
-//     return stripe;
-
-// } 
-
 export function getStripe() {
     const stripeSecretKey = process.env.MODE === "live"
         ? process.env.STRIPE_LIVE_SECRET_KEY  // Use live mode key

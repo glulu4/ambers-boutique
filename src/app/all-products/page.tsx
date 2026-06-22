@@ -52,12 +52,16 @@
 import {getAllProductsPaginated} from "@/utils/stripeHelpers";
 import ProductCard from "@/components/ProductCard";
 import HeaderText from "@/components/text/HeaderText";
-import Head from "next/head";
-import {config} from "@/config";
+import type {Metadata} from "next";
 import Link from "next/link";
 
 export const revalidate = 300; // Revalidate every 5 minutes
 const PER_PAGE = 20;
+
+export const metadata: Metadata = {
+    title: "All Products",
+    description: "Browse the full collection of unique, authentic vintage jewelry at Amber's Jewelry Boutique.",
+};
 
 interface PageProps {
     searchParams: Promise<{cursor?: string}>;
@@ -73,10 +77,6 @@ const Page = async ({searchParams}: PageProps) => {
 
     return (
         <>
-            <Head>
-                <title>{config.name.name} | {config.name.metadata.description}</title>
-            </Head>
-
             <div className="py-10">
                 <HeaderText size="large" className="pb-12 text-left">
                     All Products

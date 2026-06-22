@@ -1,22 +1,51 @@
+import AnimatedSection from "../AnimatedSection";
 import HeaderText from "../text/HeaderText";
-import SecondaryText from "../text/SecondaryText";
 
+const steps = [
+    {
+        number: "01",
+        title: "Source",
+        description:
+            "We search the world for authentic vintage buttons and pendants, each carrying its own unique history, character, and charm.",
+    },
+    {
+        number: "02",
+        title: "Restore",
+        description:
+            "Every piece is carefully cleaned and restored by hand, preserving its original beauty while preparing it for its new life as jewelry.",
+    },
+    {
+        number: "03",
+        title: "Create",
+        description:
+            "With precision and care we craft each item into a timeless piece — vintage history transformed into wearable art.",
+    },
+];
 
 const OurProcess = () => {
     return (
-        <div className="flex flex-col justify-center items-start text-left px-6 py-40">
-            <HeaderText size='large'>
-                Our Process
-            </HeaderText>
+        <div className="border-t border-gray-100 py-24">
+            <AnimatedSection>
+                <div className="mb-16">
+                    <p className="font-accent text-xl text-primaryRed mb-3">How it&apos;s made</p>
+                    <HeaderText size="large">Our Process</HeaderText>
+                    <div className="mt-4 h-px w-14 bg-primaryRed" />
+                </div>
+            </AnimatedSection>
 
-            <div className='my-12 leading-loose sm:leading-[3rem] space-y-8 font-secHeading'>
-                <SecondaryText size='large' className='font-secHeading'>
-                    At Amber&apos;s Boutique, we take pride in our meticulous process of transforming vintage buttons and pendants into exquisite jewelry pieces. Our process begins with sourcing authentic vintage buttons, each carrying its own unique history and charm.
-
-                    Once sourced, we carefully clean and restore each button, preserving its original beauty while preparing it for its new life as a piece of jewelry. We then design and craft each item with precision and care, ensuring that every piece of vintage jewelry we create is a timeless treasure.
-
-                    Our commitment to quality and authenticity is unwavering. We believe that every piece of jewelry should tell a story, and our vintage jewelry does just that. From the streets of Paris to your jewelry box, our process ensures that you receive a piece of history, beautifully preserved and transformed.
-                </SecondaryText>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
+                {steps.map((step, i) => (
+                    <AnimatedSection key={step.number} delay={i * 120}>
+                        <div className="flex flex-col gap-4">
+                            <span className="font-body text-6xl font-bold leading-none text-gray-100 select-none">
+                                {step.number}
+                            </span>
+                            <div className="h-px w-10 bg-primaryRed" />
+                            <h3 className="font-heading text-2xl font-semibold">{step.title}</h3>
+                            <p className="font-body leading-relaxed text-gray-600">{step.description}</p>
+                        </div>
+                    </AnimatedSection>
+                ))}
             </div>
         </div>
     );

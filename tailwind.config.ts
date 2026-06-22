@@ -13,23 +13,18 @@ const config = {
   theme: {
     container: {
       center: true,
-      padding: "0rem", //
-      // screens: {
-      //   "2xl": "1400px",
-      // },
+      padding: "0rem",
     },
     extend: {
-
-
       width: {
-        'fill': 'fill-available',
-        'webkit-fill': '-webkit-fill-available',
-        'moz-fill': '-moz-available',
+        fill: "fill-available",
+        "webkit-fill": "-webkit-fill-available",
+        "moz-fill": "-moz-available",
       },
       height: {
-        'fill': 'fill-available',
-        'webkit-fill': '-webkit-fill-available',
-        'moz-fill': '-moz-available',
+        fill: "fill-available",
+        "webkit-fill": "-webkit-fill-available",
+        "moz-fill": "-moz-available",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -82,10 +77,30 @@ const config = {
           from: {height: "var(--radix-accordion-content-height)"},
           to: {height: "0"},
         },
+        "fade-in-up": {
+          from: {opacity: "0", transform: "translateY(20px)"},
+          to: {opacity: "1", transform: "translateY(0)"},
+        },
+        "fade-in": {
+          from: {opacity: "0"},
+          to: {opacity: "1"},
+        },
+        "fade-in-left": {
+          from: {opacity: "0", transform: "translateX(-20px)"},
+          to: {opacity: "1", transform: "translateX(0)"},
+        },
+        "fade-in-right": {
+          from: {opacity: "0", transform: "translateX(20px)"},
+          to: {opacity: "1", transform: "translateX(0)"},
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-in-up": "fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "fade-in": "fade-in 0.9s ease-out both",
+        "fade-in-left": "fade-in-left 0.8s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "fade-in-right": "fade-in-right 0.8s cubic-bezier(0.16, 1, 0.3, 1) both",
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],

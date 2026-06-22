@@ -1,11 +1,10 @@
 import {LineItem, StripePaymentLinkResponseObj, StripeProductData, StripeProductList} from "@/types/types";
 import {getShippingRateId, getStripe} from "./getStripe";
 import {capitalizeFirstLetter, formatCurrency} from "./util";
-import {get} from "http";
 
 
 
-export async function getAllProductsPaginated(perPage:number, cursor?: string): Promise<{products: StripeProductData[], nextCursor?: string}> {
+export async function getAllProductsPaginated(perPage: number, cursor?: string): Promise<{products: StripeProductData[], nextCursor?: string}> {
   const stripe = getStripe();
   if (!stripe) throw new Error("Stripe object is null");
 
@@ -28,7 +27,7 @@ export async function getAllProductsPaginated(perPage:number, cursor?: string): 
 
 
 
-export async function createSessionLink(lineItems: LineItem[], successUrl:string, cancelUrl:string): Promise<string> {
+export async function createSessionLink(lineItems: LineItem[], successUrl: string, cancelUrl: string): Promise<string> {
   try {
     const stripe = getStripe();
     if (!stripe) throw new Error("Stripe object is null");
@@ -94,42 +93,28 @@ export async function getAllProducts(): Promise<StripeProductData[]> {
   }
 }
 
-export async function getProductsByCategory(category:string):Promise<StripeProductData[]> {
-
+export async function getProductsByCategory(category: string): Promise<StripeProductData[]> {
   const productsByCategory: Record<string, StripeProductData[]> = {};
-  
   try {
     const stripe = getStripe();
     if (!stripe) throw new Error("Stripe object is null");
-
     const products: StripeProductData[] = await getAllProducts();
-
-
-    for (const product of products){
-
+    for (const product of products) {
       // these are set in the stripe dashboard
-      const productType:string = product.metadata.type;
+      const productType: string = product.metadata.type;
 
-      if (productsByCategory[productType]){
-
+      if (productsByCategory[productType]) {
         productsByCategory[productType].push(product)
       }
-      else{
+      else {
         productsByCategory[productType] = [product]
       }
     }
-
     return productsByCategory[category];
-
-
-
-
   } catch (error) {
     console.log("Error: ", error);
     return []
   }
-
-  
 }
 
 export async function getProductsByCategoryPaginated(category: string, page: number = 1, perPage: number = 20): Promise<{products: StripeProductData[], totalPages: number}> {
@@ -161,8 +146,8 @@ export async function getProductById(id: string): Promise<StripeProductData | un
 
     const productList = await stripe.products.list({
       expand: ['data.default_price'],
-      ids:[id],
-      limit:1,
+      ids: [id],
+      limit: 1,
       active: true, // Only fetch active products
     })
 
@@ -170,10 +155,7 @@ export async function getProductById(id: string): Promise<StripeProductData | un
     return products[0];
   } catch (error) {
     console.log("error getting prod by id: ", error);
-    
-    
   }
-  
 }
 
 
@@ -185,7 +167,7 @@ export async function getProductById(id: string): Promise<StripeProductData | un
 export async function getProductPerCategory() {
 
   const productsByCategory: Record<string, StripeProductData[]> = {};
-  
+
   try {
     const stripe = getStripe();
     if (!stripe) throw new Error("Stripe object is null");
@@ -194,20 +176,20 @@ export async function getProductPerCategory() {
     const products: StripeProductData[] = await getAllProducts();
 
 
-    for (const product of products){
+    for (const product of products) {
 
       // these are set in the stripe dashboard
-      const productType:string = product.metadata.type;
+      const productType: string = product.metadata.type;
 
-      if (productsByCategory[productType]){
+      if (productsByCategory[productType]) {
 
         // only store 3 items per category
-        if (productsByCategory[productType].length === 3) 
+        if (productsByCategory[productType].length === 3)
           continue;
 
         productsByCategory[productType].push(product)
       }
-      else{
+      else {
         productsByCategory[productType] = [product]
       }
     }
@@ -222,21 +204,21 @@ export async function getProductPerCategory() {
     return {}
   }
 
-  
+
 }
 
-export function getProductType(product: StripeProductData):string{
+export function getProductType(product: StripeProductData): string {
   return capitalizeFirstLetter(product.metadata.type);
 }
 
-export function getProductPrice(product: StripeProductData):string{
+export function getProductPrice(product: StripeProductData): string {
   return formatCurrency(product.default_price)
 }
 
-export function getProductHref(product: StripeProductData):string{
+export function getProductHref(product: StripeProductData): string {
   return `/${product.metadata.type}/${product.id}`
 }
 
-export function getProductImg(product: StripeProductData): string{
+export function getProductImg(product: StripeProductData): string {
   return product.images[0]
 }

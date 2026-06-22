@@ -1,26 +1,37 @@
-import HeaderText from "./text/HeaderText";
-import SecondaryText from "./text/SecondaryText";
+import AnimatedSection from "./AnimatedSection";
 
 export default function AllProductsCta() {
     return (
-        <div className="" style={{width: "100%"}}>
-            <div  className="px-6 py-12 sm:px-6 sm:py-16 lg:px-8">
-                <div className="mx-auto max-w-2xl text-center">
-                    <HeaderText className="text-balance text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
-                        Didn&apos;t quite find what you were looking for
-                    </HeaderText>
+        <AnimatedSection>
+            <div className="relative overflow-hidden rounded-2xl bg-neutral-900 px-8 py-20 text-center sm:px-16">
+                {/* Subtle dot-grid texture */}
+                <div
+                    className="absolute inset-0 opacity-[0.04]"
+                    style={{
+                        backgroundImage: "radial-gradient(circle, #ffffff 1px, transparent 1px)",
+                        backgroundSize: "28px 28px",
+                    }}
+                />
+                {/* Red ambient glow */}
+                <div className="absolute -bottom-24 left-1/2 h-48 w-96 -translate-x-1/2 rounded-full bg-primaryRed/20 blur-3xl pointer-events-none" />
 
-                    <div className="mt-10  flex items-center justify-center gap-x-6">
-                        <a
-                            href="/all-products"
-                            className="font-secHeading text-xl rounded-md bg-primaryRed px-3.5 py-2.5 m-10  font-semibold text-white shadow-sm hover:bg-primaryRedHover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-                        >
-                            Shop all products
-                        </a>
-
-                    </div>
+                <div className="relative z-10">
+                    <p className="font-accent mb-4 text-2xl text-primaryRed">The Full Collection</p>
+                    <h2 className="font-heading mb-5 text-balance text-4xl font-semibold text-white sm:text-5xl">
+                        Didn&apos;t quite find what you were looking for?
+                    </h2>
+                    <p className="font-body mx-auto mb-10 max-w-sm text-base text-gray-400">
+                        Browse our complete collection of one-of-a-kind vintage pieces.
+                    </p>
+                    <a
+                        href="/all-products"
+                        className="font-body inline-flex items-center gap-2 rounded-full bg-primaryRed px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-primaryRed/25 transition-colors duration-200 hover:bg-primaryRedHover"
+                    >
+                        Shop all products
+                        <span aria-hidden="true">→</span>
+                    </a>
                 </div>
             </div>
-        </div>
-    )
+        </AnimatedSection>
+    );
 }

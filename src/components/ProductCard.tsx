@@ -1,14 +1,13 @@
-
 "use client";
 
 import {useCart} from "@/context/cartContext";
 import {StripeProductData} from "@/types/types";
 import {getProductHref, getProductImg, getProductPrice} from "@/utils/stripeHelpers";
-import {formatCurrency, notifyItemAddedToCart} from "@/utils/util";
+import {notifyItemAddedToCart} from "@/utils/util";
 import {ShoppingCart} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, {useState} from "react";
 
 interface ProductCardProps {
     product: StripeProductData;
@@ -17,60 +16,67 @@ interface ProductCardProps {
 
 export default function ProductCard({product, className}: ProductCardProps) {
     const {addItemToCart} = useCart();
-
+    const [imgLoaded, setImgLoaded] = useState(false);
 
     const handleAddToCart = () => {
-        addItemToCart({
-            stripeData: product,
-            quantity: 1,
-        });
-
+        addItemToCart({stripeData: product, quantity: 1});
         notifyItemAddedToCart();
-
-
     };
 
     return (
-        <div className={`group relative ${className}`}>
-            {/* Image Container */}
-            <div className="relative aspect-square w-full overflow-hidden rounded-md bg-gray-100">
+        <div className={`group ${className ?? ""}`}>
+            {/* Image container */}
+            <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-gray-100 ring-1 ring-black/5 shadow-sm transition-shadow duration-300 group-hover:shadow-md">
+
+                {/* Skeleton shimmer while loading */}
+                {!imgLoaded && (
+                    <div className="absolute inset-0 skeleton-shimmer" />
+                )}
+
                 <Link href={getProductHref(product)}>
                     <Image
                         alt={product.name}
                         width={800}
                         height={800}
                         src={getProductImg(product)}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                        onLoad={() => setImgLoaded(true)}
+                        className={`h-full w-full object-cover transition-all duration-500 group-hover:scale-105 ${
+                            imgLoaded ? "opacity-100" : "opacity-0"
+                        }`}
                     />
-
                 </Link>
 
-                {/* Shopping Cart Button */}
+                {/* Add to cart — desktop slide-up ghost button */}
                 <button
                     onClick={(e) => {
-                        e.stopPropagation(); // Prevent click from propagating to the Link
+                        e.stopPropagation();
                         handleAddToCart();
                     }}
-                    className="hidden z-50 sm:hover:bg-primaryRedHover sm:absolute sm:flex sm:flex-row sm:justify-center sm:items-center sm:gap-2 sm:bottom-4 sm:left-1/2 sm:transform sm:-translate-x-1/2 sm:bg-primaryRed sm:text-white sm:text-sm sm:font-medium sm:py-2 sm:px-4 sm:rounded sm:w-5/6 sm:opacity-0 group-hover:sm:opacity-100 sm:transition-opacity sm:duration-300"
+                    className="absolute bottom-3 left-1/2 hidden w-[85%] -translate-x-1/2 translate-y-2 items-center justify-center gap-1.5 rounded-lg border border-primaryRed bg-white/90 px-4 py-2 text-sm font-semibold text-primaryRed opacity-0 backdrop-blur-sm transition-all duration-300 hover:bg-primaryRed hover:text-white sm:flex group-hover:translate-y-0 group-hover:opacity-100"
                 >
-                    <ShoppingCart size={20} />
+                    <ShoppingCart size={14} />
                     Add to cart
                 </button>
             </div>
 
-            {/* Product Info */}
-            <div className="flex flex-row justify-between items-center">
-                <div className="mt-4 flex flex-col gap-2">
-                    <h3 className="text-lg text-gray-700 font-semibold">
-                        {/* <span aria-hidden="true" className="absolute inset-0" /> */}
-
-                        {product.name}
-                    </h3>
-                    <p className="text-md font-medium text-gray-900">
-                        {getProductPrice(product)}
-                    </p>
-                </div>
+            {/* Product info */}
+            <div className="mt-3 flex flex-col gap-0.5">
+                <h3 className="line-clamp-2 font-body text-sm font-semibold leading-snug text-gray-800 sm:text-base">
+                    {product.name}
+                </h3>
+                <p className="font-body text-sm font-medium text-primaryRed">
+                    {getProductPrice(product)}
+                </p>
             </div>
+
+            {/* Add to cart — mobile always-visible button */}
+            <button
+                onClick={handleAddToCart}
+                className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg border border-gray-200 bg-white py-2 px-4 font-body text-sm font-medium text-gray-700 transition-all duration-150 active:scale-[0.97] sm:hidden"
+            >
+                <ShoppingCart size={13} />
+                Add to cart
+            </button>
         </div>
     );
 }

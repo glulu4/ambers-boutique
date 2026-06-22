@@ -10,7 +10,6 @@ import SecondaryText from './text/SecondaryText'
 import {useCart} from '@/context/cartContext'
 import {notifyItemAddedToCart} from '@/utils/util'
 import Image from 'next/image'
-import Head from 'next/head'
 
 
 
@@ -32,36 +31,28 @@ export default function ProductDisplay({product}: {product: StripeProductData}) 
 
     return (
         <>
-              <Head>
-        <title>{product.name} - Amber&apos;s Jewelry Boutique | Vintage Jewelry</title>
-        <meta
-          name="description"
-          content={`Discover ${product.name}, a unique and authentic vintage Chanel piece available at Amber's Jewelry Boutique. ${product.description}`}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Product",
-              name: product.name,
-              description: product.description,
-              image: product.images[0],
-              offers: {
-                "@type": "Offer",
-                priceCurrency: "USD",
-                price: getProductPrice(product),
-                availability: "https://schema.org/InStock",
-              },
-              brand: {
-                "@type": "Brand",
-                name: "Amber's Jewelry Boutique",
-              },
-            }),
-          }}
-        />
-      </Head>
-
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "Product",
+                  name: product.name,
+                  description: product.description,
+                  image: product.images[0],
+                  offers: {
+                    "@type": "Offer",
+                    priceCurrency: "USD",
+                    price: getProductPrice(product),
+                    availability: "https://schema.org/InStock",
+                  },
+                  brand: {
+                    "@type": "Brand",
+                    name: "Amber's Jewelry Boutique",
+                  },
+                }),
+              }}
+            />
 
             <div>
                 <div className=" mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">

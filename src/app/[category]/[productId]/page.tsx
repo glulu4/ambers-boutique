@@ -8,9 +8,30 @@ interface ProductPageProps {
 import {getProductById} from "@/utils/stripeHelpers";
 import {StripeProductData} from "@/types/types";
 import ProductDisplay from "@/components/ProductDisplay";
-import Head from "next/head";
+import type {Metadata} from "next";
 
 // export const dynamic = "force-dynamic"; // Allow dynamic generation of pages
+
+export async function generateMetadata({params}: ProductPageProps): Promise<Metadata> {
+    const {productId} = await params;
+    const product = await getProductById(productId);
+
+    if (!product) {
+        return {title: "Product not found"};
+    }
+
+    const description = product.description || "";
+    return {
+        title: product.name,
+        description,
+        openGraph: {
+            title: `${product.name} - Amber's Boutique`,
+            description,
+            type: "website",
+            images: product.images?.[0] ? [product.images[0]] : undefined,
+        },
+    };
+}
 
 const ProductPage = async ({params}: ProductPageProps) => {
     const resolvedParams = await params; // Await the params if it's a Promise
@@ -24,14 +45,6 @@ const ProductPage = async ({params}: ProductPageProps) => {
 
     return (
         <div>
-            <Head>
-                <title>{product.name} - Amber&apos;s Boutique</title>
-                <meta name="description" content={product.description || ""} />
-                <meta property="og:title" content={`${product.name} - Amber's Boutique`} />
-                <meta property="og:description" content={product.description || ""} />
-                <meta property="og:image" content={product.images[0] || ""} />
-                <meta property="og:type" content="product" />
-            </Head>
             <ProductDisplay product={product} />
         </div>
     );

@@ -83,24 +83,42 @@ const navigation = {
 
 export const Footer = () =>  {
   return (
-    <footer className="">
-      <div className="mx-auto overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
-        <nav aria-label="Footer" className="-mb-6 flex flex-wrap justify-center gap-x-12 gap-y-3 text-sm/6">
+    <footer className="mt-20">
+      {/* Red gradient accent line */}
+      <div className="h-px bg-gradient-to-r from-transparent via-primaryRed/40 to-transparent" />
+
+      <div className="mx-auto overflow-hidden px-6 py-16 sm:py-20 lg:px-8">
+        {/* Brand name */}
+        <div className="mb-10 text-center">
+          <span className="font-accent text-3xl text-gray-800">Amber&apos;s Jewelry Boutique</span>
+        </div>
+
+        <nav aria-label="Footer" className="flex flex-wrap justify-center gap-x-10 gap-y-3 text-sm">
           {navigation.main.map((item) => (
-            <a key={item.name} href={item.href} className="text-gray-600 hover:text-gray-900">
+            <a
+              key={item.name}
+              href={item.href}
+              className="font-body text-gray-500 transition-colors duration-200 hover:text-gray-900"
+            >
               {item.name}
             </a>
           ))}
         </nav>
-        <div className="mt-16 flex justify-center gap-x-10">
+
+        <div className="mt-10 flex justify-center gap-x-6">
           {navigation.social.map((item) => (
-            <a key={item.name} href={item.href} className="text-gray-600 hover:text-gray-800">
+            <a
+              key={item.name}
+              href={item.href}
+              className="text-gray-400 transition-colors duration-200 hover:text-primaryRed"
+            >
               <span className="sr-only">{item.name}</span>
-              <item.icon aria-hidden="true" className="size-6" />
+              <item.icon aria-hidden="true" className="size-5" />
             </a>
           ))}
         </div>
-        <p className="mt-10 text-center text-sm/6 text-gray-600">
+
+        <p className="mt-10 text-center font-body text-xs text-gray-400">
           &copy; {new Date().getFullYear()} Amber&apos;s Jewelry Boutique. All rights reserved.
         </p>
       </div>
