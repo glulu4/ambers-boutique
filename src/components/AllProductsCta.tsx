@@ -1,4 +1,5 @@
 import AnimatedSection from "./AnimatedSection";
+import Link from "next/link";
 
 export default function AllProductsCta() {
     return (
@@ -23,13 +24,13 @@ export default function AllProductsCta() {
                     <p className="font-body mx-auto mb-10 max-w-sm text-base text-gray-400">
                         Browse our complete collection of one-of-a-kind vintage pieces.
                     </p>
-                    <a
+                    <Link
                         href="/all-products"
                         className="font-body inline-flex items-center gap-2 rounded-full bg-primaryRed px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-primaryRed/25 transition-colors duration-200 hover:bg-primaryRedHover"
                     >
                         Shop all products
                         <span aria-hidden="true">→</span>
-                    </a>
+                    </Link>
                 </div>
             </div>
         </AnimatedSection>

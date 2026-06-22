@@ -9,6 +9,7 @@ export const DarkModeToggle = () => {
 
   useEffect(() => {
     // When the component mounts on the client, update the state to indicate it is mounted
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 

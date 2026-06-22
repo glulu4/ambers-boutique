@@ -1,6 +1,7 @@
 import OurStory from '@/components/OurStory'
 import HeaderText from '@/components/text/HeaderText'
 import type {Metadata} from 'next'
+import Link from 'next/link'
 import React from 'react'
 
 export const metadata: Metadata = {
@@ -22,12 +23,12 @@ export default function page() {
                           </HeaderText>
 
                           <div className="mt-10  flex items-center justify-center gap-x-6">
-                              <a
+                              <Link
                                   href="/all-products"
                                   className="font-secHeading text-xl rounded-md bg-primaryRed px-3.5 py-2.5 m-10  font-semibold text-white shadow-sm hover:bg-primaryRedHover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                               >
                                   Shop all products
-                              </a>
+                              </Link>
 
                           </div>
                       </div>

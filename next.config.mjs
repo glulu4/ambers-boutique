@@ -23,8 +23,11 @@ const nextConfig = {
   //   ];
   // },
   images: {
-    domains: ['files.stripe.com'], // Add 'files.stripe.com' here
     remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "files.stripe.com",
+      },
       {
         protocol: "https",
         hostname: "imagedelivery.net",

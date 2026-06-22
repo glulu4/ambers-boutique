@@ -3,6 +3,7 @@ import {StripePrice} from "@/types/types";
 import {Check} from "lucide-react";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import type { Toast } from "react-hot-toast";
 
 export function capitalizeFirstLetter(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -15,7 +16,7 @@ export function notifyItemAddedToCart() {
         
     // });
 
-    toast.custom((t) => (
+    toast.custom((t: Toast) => (
         <div
             className={`${t.visible ? 'animate-enter' : 'animate-leave'
                 } max-w-md w-full bg-white shadow-md rounded-lg flex items-center ring-1 ring-gray-300 overflow-hidden`}
