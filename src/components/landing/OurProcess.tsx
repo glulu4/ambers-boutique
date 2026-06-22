@@ -37,7 +37,7 @@ const OurProcess = () => {
                 {steps.map((step, i) => (
                     <AnimatedSection key={step.number} delay={i * 120}>
                         <div className="flex flex-col gap-4">
-                            <span className="font-body text-6xl font-bold leading-none text-gray-100 select-none">
+                            <span className="font-body text-6xl font-bold leading-none text-gray-300 select-none">
                                 {step.number}
                             </span>
                             <div className="h-px w-10 bg-primaryRed" />
