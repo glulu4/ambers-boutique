@@ -26,12 +26,14 @@
 import React from "react";
 
 interface HeaderTextProps extends React.HTMLAttributes<HTMLHeadingElement> {
+    as?: "h1" | "h2" | "h3" | "p";
     size?: "small" | "medium" | "large";
     children: React.ReactNode;
     className?: string; // Allow additional Tailwind classes
 }
 
 const HeaderText: React.FC<HeaderTextProps> = ({
+    as: Tag = "h2",
     size = "medium",
     children,
     className,
@@ -44,12 +46,12 @@ const HeaderText: React.FC<HeaderTextProps> = ({
     };
 
     return (
-        <h1
+        <Tag
             className={`${sizeClasses[size]} font-heading  leading-snug ${className}`}
             {...props} // Spread all other props
         >
             {children}
-        </h1>
+        </Tag>
     );
 };
 

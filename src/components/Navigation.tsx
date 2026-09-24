@@ -1,6 +1,7 @@
 'use client'
 
 import React, {useState} from 'react'
+import Link from 'next/link'
 import {
     Dialog,
     DialogPanel,
@@ -64,7 +65,7 @@ export default function Navigation({
                         className="absolute -left-8 top-full z-10 mt-3 w-56 rounded-xl bg-white p-2 shadow-lg ring-1 ring-gray-900/5"
                     >
                         {item.items.map((subItem) => (
-                            <a
+                            <Link
                                 key={subItem.name}
                                 href={subItem.href}
                                 className="block rounded-lg px-3 py-2 text-sm/6 font-semibold text-gray-900 hover:bg-gray-50"
@@ -72,7 +73,7 @@ export default function Navigation({
                                 <SecondaryText className='text-primaryRedHover font-semibold'>
                                     {subItem.name}
                                 </SecondaryText>
-                            </a>
+                            </Link>
                         ))}
                     </PopoverPanel>
                 </Popover>
@@ -80,7 +81,7 @@ export default function Navigation({
         }
 
         return (
-            <a
+            <Link
                 key={item.name}
                 href={item.href}
                 className="text-sm/6 font-semibold text-gray-900"
@@ -88,7 +89,7 @@ export default function Navigation({
                 <SecondaryText className='text-primaryRed font-semibold'>
                     {item.name}
                 </SecondaryText>
-            </a>
+            </Link>
         )
     }
 
@@ -106,8 +107,9 @@ export default function Navigation({
                         {item.items.map((subItem) => (
                             <DisclosureButton
                                 key={subItem.name}
-                                as="a"
+                                as={Link}
                                 href={subItem.href}
+                                onClick={() => setMobileMenuOpen(false)}
                                 className="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50"
                             >
                                 <SecondaryText className='text-primaryRedHover font-semibold'>
@@ -121,15 +123,16 @@ export default function Navigation({
         }
 
         return (
-            <a
+            <Link
                 key={item.name}
                 href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
                 className="-mx-3 block rounded-lg px-3 py-2"
             >
                 <SecondaryText className='py-1 text-primaryRed font-semibold'>
                     {item.name}
                 </SecondaryText>
-            </a>
+            </Link>
         )
     }
 

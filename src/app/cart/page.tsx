@@ -80,7 +80,7 @@ export default function Page() {
     return (
         <div className="">
             <div className="pt-20">
-                <HeaderText size='large' className="">
+                <HeaderText as="h1" size='large' className="">
                     Shopping Cart
                 </HeaderText>
                 <div className="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
@@ -94,7 +94,7 @@ export default function Page() {
                                 <li key={productIdx} className="flex py-6 sm:py-10">
                                     <div className="shrink-0">
                                         <Image
-                                            alt="Amber's Jewelry Boutique"
+                                            alt={cartItem.stripeData.name}
                                             src={getProductImg(cartItem.stripeData)}
                                             className="size-24 rounded-md object-cover sm:size-48"
                                             width={100}
@@ -195,10 +195,6 @@ export default function Page() {
                             <div className="flex items-center justify-between border-t border-gray-200 pt-4">
                                 <dt className="flex md:text-md text-lg items-center text-gray-600">
                                     <span className=" text-gray-600 font-body">Shipping estimate</span>
-                                    <a href="#" className="ml-2 shrink-0 text-gray-400 hover:text-gray-500">
-                                        <span className="sr-only">Learn more about how shipping is calculated</span>
-                                        <QuestionMarkCircleIcon aria-hidden="true" className="size-5" />
-                                    </a>
                                 </dt>
                                 <dd className="md:text-md text-lg font-body font-medium text-gray-900">{shipping.display}</dd>
                             </div>

@@ -4,29 +4,6 @@ import {capitalizeFirstLetter, formatCurrency} from "./util";
 
 
 
-export async function getAllProductsPaginated(perPage: number, cursor?: string): Promise<{products: StripeProductData[], nextCursor?: string}> {
-  const stripe = getStripe();
-  if (!stripe) throw new Error("Stripe object is null");
-
-  // Call Stripe API to get products
-  const response = await stripe.products.list({
-    limit: perPage, // Fetch 20 products at a time
-    expand: ["data.default_price"],
-    starting_after: cursor || undefined, // First call doesn't supply cursor
-    active: true, // Only fetch active products
-  });
-
-  // Get the last product's ID to use as the next cursor
-  const nextCursor = response.has_more ? response.data[response.data.length - 1].id : undefined;
-
-  return {
-    products: response.data,
-    nextCursor,
-  };
-}
-
-
-
 export async function createSessionLink(lineItems: LineItem[], successUrl: string, cancelUrl: string): Promise<string> {
   try {
     const stripe = getStripe();

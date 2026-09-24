@@ -28,7 +28,7 @@ export default function AllProductsCta() {
                         href="/all-products"
                         className="font-body inline-flex items-center gap-2 rounded-full bg-primaryRed px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-primaryRed/25 transition-colors duration-200 hover:bg-primaryRedHover"
                     >
-                        Shop all products
+                        Shop all vintage jewelry
                         <span aria-hidden="true">→</span>
                     </Link>
                 </div>

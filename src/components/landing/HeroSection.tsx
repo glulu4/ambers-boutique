@@ -10,7 +10,7 @@ const HeroSection = () => {
             {/* Desktop text column — staggered entrance */}
             <div className="hidden lg:flex flex-col flex-1 lg:max-w-md space-y-8 h-webkit-fill justify-around">
                 <div className="animate-fade-in-left">
-                    <HeaderText size="large" className="text-black leading-tight">
+                    <HeaderText as="h1" size="large" className="text-black leading-tight">
                         Unique and <br />
                         Authentic Vintage <br />
                         Jewelry
@@ -31,7 +31,7 @@ const HeroSection = () => {
                         href="/all-products"
                         className="group inline-flex items-center gap-2 font-body text-sm font-semibold tracking-wide text-primaryRed transition-colors duration-200 hover:text-primaryRedHover"
                     >
-                        Explore the collection
+                        Shop vintage jewelry
                         <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">
                             →
                         </span>
@@ -56,7 +56,7 @@ const HeroSection = () => {
                 {/* Mobile centered text */}
                 <div className="absolute inset-0 flex items-center justify-center px-6 lg:hidden">
                     <div className="flex flex-col items-center text-center animate-fade-in-up">
-                        <HeaderText size="large" className="text-white font-semibold mb-5">
+                        <HeaderText as="p" size="large" className="text-white font-semibold mb-5">
                             Unique and <br />
                             <span className="italic">Authentic</span>{" "}
                             Vintage <span className="italic">Designer</span> Jewelry
@@ -65,7 +65,7 @@ const HeroSection = () => {
                             href="/all-products"
                             className="font-body text-sm font-semibold text-white/80 transition-colors duration-200 hover:text-white"
                         >
-                            Explore the collection →
+                            Shop vintage jewelry →
                         </Link>
                     </div>
                 </div>

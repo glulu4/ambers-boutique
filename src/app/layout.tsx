@@ -1,5 +1,4 @@
-import {config} from "@/config";
-import {signOgImageUrl} from "@/lib/og-image";
+import {SITE_NAME, SITE_URL} from "@/config";
 import {cn} from "@/lib/utils";
 import type {Metadata} from "next";
 import {Inter, Corinthia, Lora, Inria_Serif, Rethink_Sans} from "next/font/google";
@@ -35,24 +34,49 @@ const fontAccent = Corinthia({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_BASE_URL || "https://www.ambersjewelryboutique.com"
-  ),
+  metadataBase: new URL(SITE_URL),
   title: {
-    absolute: "Amber's Jewelry Boutique",
-    default: "Amber's Jewelry Boutique - Vintage Jewelry",
-    template: "%s | Vintage Jewelry",
+    default: `Vintage Jewelry | ${SITE_NAME}`,
+    template: `%s | ${SITE_NAME}`,
   },
   description: "Discover unique and authentic vintage jewelry at Amber's Jewelry Boutique. Shop our collection of timeless pieces crafted from vintage buttons.",
   openGraph: {
     title: "Amber's Boutique - Vintage Jewelry",
     description: "Explore our exclusive collection of vintage jewelry. Each piece is a timeless treasure crafted from authentic buttons.",
-    images: [
-      signOgImageUrl({
-        title: "Amber's Jewelry Boutique - Vintage Jewelry",
-      }),
-    ]
+    siteName: SITE_NAME,
   }
+};
+
+// Sitewide store/organization schema, rendered on every page.
+const storeJsonLd = {
+  "@context": "https://schema.org",
+  "@type": ["OnlineStore", "JewelryStore"],
+  "name": SITE_NAME,
+  "url": SITE_URL,
+  "logo": `${SITE_URL}/icon.png`,
+  "description": "Specializing in artisanal repurposed vintage jewelry crafted from sustainable materials and designer vintage elements. Each piece is uniquely transformed into contemporary wearable art.",
+  "brand": {
+    "@type": "Brand",
+    "name": SITE_NAME,
+    "slogan": "Transforming vintage treasures into modern masterpieces"
+  },
+  "keywords": [
+    "repurposed jewelry", "vintage jewelry", "recycled jewelry",
+    "upcycled jewelry", "sustainable jewelry", "vintage button jewelry",
+    "eco-friendly jewelry", "handmade jewelry", "artisan jewelry",
+    "designer button jewelry"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Repurposed Vintage Jewelry Collection",
+    "itemListElement": [
+      { "@type": "OfferCatalog", "name": "Vintage Button Jewelry", "description": "Elegant jewelry pieces crafted from authentic vintage designer buttons" },
+      { "@type": "OfferCatalog", "name": "Upcycled Vintage Pieces", "description": "Contemporary jewelry designs created from carefully sourced vintage materials" }
+    ]
+  },
+  "areaServed": [{ "@type": "Country", "name": "United States" }, { "@type": "Country", "name": "Canada" }],
+  "priceRange": "$$",
+  "sameAs": ["https://www.instagram.com/ambersjewelry.boutique/"]
 };
 
 export default function RootLayout({
@@ -75,6 +99,7 @@ export default function RootLayout({
           fontAccent.variable
         )}
       >
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(storeJsonLd) }} />
         <Providers
           attribute="class"
           defaultTheme="light"

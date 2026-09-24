@@ -2,9 +2,11 @@ import {getProductsByCategoryPaginated} from "@/utils/stripeHelpers";
 import ProductCard from "@/components/ProductCard";
 import HeaderText from "@/components/text/HeaderText";
 import {capitalizeFirstLetter} from "@/utils/util";
-import {categories} from "@/types/categories";
+import {categories, categoryIntros} from "@/types/categories";
+import SecondaryText from "@/components/text/SecondaryText";
 import type {Metadata} from "next";
 import Link from "next/link";
+import {notFound} from "next/navigation";
 
 export const revalidate = 300; // Revalidate every 5 min
 
@@ -19,12 +21,17 @@ export const generateStaticParams = async () => {
     return categories.map(category => ({category}));
 };
 
-export async function generateMetadata({params}: CategoryPageProps): Promise<Metadata> {
+export async function generateMetadata({params, searchParams}: CategoryPageProps): Promise<Metadata> {
     const {category} = await params;
+    const {page} = await searchParams;
+    const currentPage = Number(page) || 1;
     const name = capitalizeFirstLetter(category);
     return {
-        title: `${name}s`,
-        description: `Explore our collection of vintage ${category}s at Amber's Jewelry Boutique.`,
+        title: `Vintage Button ${name}s`,
+        description: `Shop one-of-a-kind vintage ${category}s handcrafted from authentic designer buttons at Amber's Jewelry Boutique. Each piece is unique.`,
+        alternates: {
+            canonical: currentPage > 1 ? `/${category}?page=${currentPage}` : `/${category}`,
+        },
     };
 }
 
@@ -35,18 +42,26 @@ const CategoryPage = async ({params, searchParams}: CategoryPageProps) => {
     const { page } = await searchParams;
     const currentPage = Number(page) || 1;
 
+    if (!categories.includes(category)) {
+        notFound();
+    }
+
     // Fetch filtered and paginated products
     const {products, totalPages} = await getProductsByCategoryPaginated(category, currentPage, PER_PAGE);
 
     if (!products || products.length === 0) {
+        if (currentPage > 1) notFound();
         return <p>No products found in this category.</p>;
     }
 
     return (
         <div className="py-10">
-            <HeaderText size="large" className="pb-12 text-left">
-                {capitalizeFirstLetter(category)}s
+            <HeaderText as="h1" size="large" className="pb-6 text-left">
+                Vintage {capitalizeFirstLetter(category)}s
             </HeaderText>
+            <SecondaryText className="max-w-3xl pb-12">
+                {categoryIntros[category]}
+            </SecondaryText>
 
             {/* Dynamic Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 sm:gap-6 gap-2">

@@ -1,7 +1,7 @@
 import type {MetadataRoute} from "next";
+import {SITE_URL} from "@/config";
 
-const baseUrl =
-  process.env.NEXT_PUBLIC_BASE_URL || "https://www.ambersjewelryboutique.com";
+const baseUrl = SITE_URL;
 
 export default function robots(): MetadataRoute.Robots {
   return {

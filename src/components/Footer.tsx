@@ -55,7 +55,7 @@ export const Footer = () => {
                   href="/all-products"
                   className="font-body text-sm text-gray-600 transition-colors duration-200 hover:text-primaryRed"
                 >
-                  All Products
+                  All Vintage Jewelry
                 </Link>
               </li>
             </ul>

@@ -4,7 +4,9 @@ import {Radio, RadioGroup} from '@headlessui/react'
 import {ShieldCheckIcon} from '@heroicons/react/24/outline'
 import {cn} from '@/lib/utils'
 import {StripeProductData} from '@/types/types'
-import {getProductPrice, getProductType} from '@/utils/stripeHelpers'
+import {getProductHref, getProductPrice, getProductType} from '@/utils/stripeHelpers'
+import {SITE_NAME, SITE_URL} from '@/config'
+import Link from 'next/link'
 import HeaderText from './text/HeaderText'
 import SecondaryText from './text/SecondaryText'
 import {useCart} from '@/context/cartContext'
@@ -15,8 +17,45 @@ import Image from 'next/image'
 
 
 
-export default function ProductDisplay({product}: {product: StripeProductData}) {
+export default function ProductDisplay({product, description}: {product: StripeProductData; description: string}) {
     const {addItemToCart, cart, cartTotal} = useCart();
+
+    const productUrl = `${SITE_URL}${getProductHref(product)}`;
+    const categoryPath = `/${product.metadata.type}`;
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Product",
+                name: product.name,
+                description,
+                image: product.images,
+                sku: product.id,
+                url: productUrl,
+                offers: product.default_price ? {
+                    "@type": "Offer",
+                    url: productUrl,
+                    // Stripe amounts are in cents; schema.org expects a plain number
+                    price: (product.default_price.unit_amount / 100).toFixed(2),
+                    priceCurrency: product.default_price.currency.toUpperCase(),
+                    availability: "https://schema.org/InStock",
+                    itemCondition: "https://schema.org/NewCondition",
+                } : undefined,
+                brand: {
+                    "@type": "Brand",
+                    name: SITE_NAME,
+                },
+            },
+            {
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                    {"@type": "ListItem", position: 1, name: "Home", item: SITE_URL},
+                    {"@type": "ListItem", position: 2, name: `${getProductType(product)}s`, item: `${SITE_URL}${categoryPath}`},
+                    {"@type": "ListItem", position: 3, name: product.name, item: productUrl},
+                ],
+            },
+        ],
+    };
 
 
     const handleAddToCart = () => {
@@ -34,23 +73,7 @@ export default function ProductDisplay({product}: {product: StripeProductData}) 
             <script
               type="application/ld+json"
               dangerouslySetInnerHTML={{
-                __html: JSON.stringify({
-                  "@context": "https://schema.org",
-                  "@type": "Product",
-                  name: product.name,
-                  description: product.description,
-                  image: product.images[0],
-                  offers: {
-                    "@type": "Offer",
-                    priceCurrency: "USD",
-                    price: getProductPrice(product),
-                    availability: "https://schema.org/InStock",
-                  },
-                  brand: {
-                    "@type": "Brand",
-                    name: "Amber's Jewelry Boutique",
-                  },
-                }),
+                __html: JSON.stringify(jsonLd),
               }}
             />
 
@@ -60,13 +83,17 @@ export default function ProductDisplay({product}: {product: StripeProductData}) 
                     <div className="lg:max-w-lg lg:self-end">
                         <nav aria-label="Breadcrumb">
                             <ol role="list" className="flex items-center space-x-2">
-                                <SecondaryText>{getProductType(product)}</SecondaryText>
+                                <li>
+                                    <Link href={categoryPath} className="hover:text-primaryRed">
+                                        <SecondaryText>{getProductType(product)}s</SecondaryText>
+                                    </Link>
+                                </li>
 
                             </ol>
                         </nav>
 
                         <div className="mt-4">
-                            <HeaderText size='large'>
+                            <HeaderText as="h1" size='large'>
                                 {product.name}
                             </HeaderText>
                         </div>
@@ -98,7 +125,7 @@ export default function ProductDisplay({product}: {product: StripeProductData}) 
                         <Image
                             width={500}
                             height={500}
-                            alt={`Image of ${product.name}| Amber's Jewelry Boutique | Vintage Jewelry`}
+                            alt={product.name}
                             src={product.images[0]}
                             className="aspect-square w-full rounded-lg object-cover" />
                     </div>

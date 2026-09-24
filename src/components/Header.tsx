@@ -36,16 +36,16 @@ export const Header: FunctionComponent = (...other) => {
       items: [...categories.map((cat) => ({
         name: capitalizeFirstLetter(cat)+"'s",
         href: `/${cat}`,
-      })), {name: "All Products", href: "/all-products"}],
+      })), {name: "All Vintage Jewelry", href: "/all-products"}],
     },
   ];
 
   return (
     <section className="flex flex-row md:flex-col sm:gap-10 items-center justify-between mt-8 md:mt-16 mb-12">
       <Link href="/">
-        <h1 className="text-4xl md:text-6xl font-accent font-bold leading-tight">
+        <span className="block text-4xl md:text-6xl font-accent font-bold leading-tight">
           Amber&apos;s Jewelry Boutique
-        </h1>
+        </span>
       </Link>
       <Navigation items={navigationItems} />
     </section>

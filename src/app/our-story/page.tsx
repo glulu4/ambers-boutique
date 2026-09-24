@@ -7,6 +7,7 @@ import React from 'react'
 export const metadata: Metadata = {
   title: 'Our Story',
   description: "Learn the story behind Amber's Jewelry Boutique and our passion for transforming vintage buttons into timeless, authentic jewelry.",
+  alternates: {canonical: "/our-story"},
 }
 
 export default function page() {
@@ -27,7 +28,7 @@ export default function page() {
                                   href="/all-products"
                                   className="font-secHeading text-xl rounded-md bg-primaryRed px-3.5 py-2.5 m-10  font-semibold text-white shadow-sm hover:bg-primaryRedHover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                               >
-                                  Shop all products
+                                  Shop all vintage jewelry
                               </Link>
 
                           </div>

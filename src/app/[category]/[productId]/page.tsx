@@ -5,28 +5,37 @@ interface ProductPageProps {
 
 }
 
-import {getProductById} from "@/utils/stripeHelpers";
+import {getProductById, getProductHref, getProductPrice} from "@/utils/stripeHelpers";
 import {StripeProductData} from "@/types/types";
 import ProductDisplay from "@/components/ProductDisplay";
 import type {Metadata} from "next";
+import {notFound, permanentRedirect} from "next/navigation";
 
 // export const dynamic = "force-dynamic"; // Allow dynamic generation of pages
+
+function getProductDescription(product: StripeProductData): string {
+    return product.description ||
+        `${product.name}, one-of-a-kind jewelry handcrafted from authentic vintage buttons. ${getProductPrice(product)}.`;
+}
 
 export async function generateMetadata({params}: ProductPageProps): Promise<Metadata> {
     const {productId} = await params;
     const product = await getProductById(productId);
 
     if (!product) {
-        return {title: "Product not found"};
+        notFound();
     }
 
-    const description = product.description || "";
+    const description = getProductDescription(product);
+    const href = getProductHref(product);
     return {
         title: product.name,
         description,
+        alternates: {canonical: href},
         openGraph: {
             title: `${product.name} - Amber's Boutique`,
             description,
+            url: href,
             type: "website",
             images: product.images?.[0] ? [product.images[0]] : undefined,
         },
@@ -35,17 +44,22 @@ export async function generateMetadata({params}: ProductPageProps): Promise<Meta
 
 const ProductPage = async ({params}: ProductPageProps) => {
     const resolvedParams = await params; // Await the params if it's a Promise
-    const {productId} = resolvedParams;
+    const {category, productId} = resolvedParams;
 
     const product: StripeProductData | undefined = await getProductById(productId);
 
     if (!product) {
-        return <div>Product not found</div>;
+        notFound();
+    }
+
+    // Serve each product at a single URL: /{its category}/{id}
+    if (product.metadata.type !== category) {
+        permanentRedirect(getProductHref(product));
     }
 
     return (
         <div>
-            <ProductDisplay product={product} />
+            <ProductDisplay product={product} description={getProductDescription(product)} />
         </div>
     );
 };

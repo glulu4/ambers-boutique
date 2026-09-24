@@ -28,3 +28,7 @@ const buildConfig = () => {
 };
 
 export const config = buildConfig();
+
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_BASE_URL || "https://www.ambersjewelryboutique.com";
+export const SITE_NAME = "Amber's Jewelry Boutique";

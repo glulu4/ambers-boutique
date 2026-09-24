@@ -4,7 +4,7 @@ import HeaderText from "./text/HeaderText";
 export default function OurStory() {
   return (
     <div className="flex flex-col justify-center items-start text-left px-6 py-40">
-      <HeaderText size='large'>
+      <HeaderText as="h1" size='large'>
         Our Story
       </HeaderText>
 

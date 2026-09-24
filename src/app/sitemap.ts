@@ -1,9 +1,9 @@
 import type {MetadataRoute} from "next";
+import {SITE_URL} from "@/config";
 import {categories} from "@/types/categories";
 import {getAllProducts, getProductHref} from "@/utils/stripeHelpers";
 
-const baseUrl =
-  process.env.NEXT_PUBLIC_BASE_URL || "https://www.ambersjewelryboutique.com";
+const baseUrl = SITE_URL;
 
 // Regenerate the sitemap at most every hour to keep product URLs fresh.
 export const revalidate = 3600;

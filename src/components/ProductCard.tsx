@@ -61,9 +61,9 @@ export default function ProductCard({product, className}: ProductCardProps) {
 
             {/* Product info */}
             <div className="mt-3 flex flex-col gap-0.5">
-                <h3 className="line-clamp-2 font-body text-sm font-semibold leading-snug text-gray-800 sm:text-base">
+                <p className="line-clamp-2 font-body text-sm font-semibold leading-snug text-gray-800 sm:text-base">
                     {product.name}
-                </h3>
+                </p>
                 <p className="font-body text-sm font-medium text-primaryRed">
                     {getProductPrice(product)}
                 </p>

@@ -16,7 +16,7 @@ const CategoryProducts = ({
             {/* Section header */}
             <div>
                 <p className="font-accent text-xl text-primaryRed mb-2">Our Collection</p>
-                <HeaderText size="large">Shop Our Products</HeaderText>
+                <HeaderText size="large">Shop Vintage Jewelry</HeaderText>
                 <div className="mt-4 h-px w-14 bg-primaryRed" />
             </div>
 
@@ -25,12 +25,12 @@ const CategoryProducts = ({
                     <div className="space-y-6">
                         {/* Category header */}
                         <div className="flex items-center justify-between">
-                            <HeaderText>{capitalizeFirstLetter(category)}s</HeaderText>
+                            <HeaderText as="h3">{capitalizeFirstLetter(category)}s</HeaderText>
                             <Link
                                 href={`/${encodeURIComponent(category)}`}
                                 className="group flex items-center gap-1 font-body text-xs font-medium text-primaryRed transition-colors duration-200 hover:text-primaryRedHover sm:text-base"
                             >
-                                Shop the collection
+                                Shop vintage {category}s
                                 <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">
                                     →
                                 </span>
