@@ -10,7 +10,7 @@ import Link from 'next/link'
 import HeaderText from './text/HeaderText'
 import SecondaryText from './text/SecondaryText'
 import {useCart} from '@/context/cartContext'
-import {notifyItemAddedToCart} from '@/utils/util'
+import {notifyCartUpdate} from '@/components/CartToast'
 import Image from 'next/image'
 
 
@@ -59,12 +59,7 @@ export default function ProductDisplay({product, description}: {product: StripeP
 
 
     const handleAddToCart = () => {
-        addItemToCart({
-            stripeData: product,
-            quantity: 1,
-        });
-
-        notifyItemAddedToCart();
+        notifyCartUpdate(product, addItemToCart(product));
 
     };
 
@@ -147,9 +142,10 @@ export default function ProductDisplay({product, description}: {product: StripeP
                                             handleAddToCart();
                                         }}
                                         type="button"
-                                        className="flex w-full items-center justify-center rounded-md border border-transparent bg-primaryRed px-8 py-3 text-base font-medium text-white hover:bg-primaryRedHover focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+                                        className="group flex w-full items-center justify-center gap-3 bg-neutral-900 px-8 py-4 font-body text-xs font-medium uppercase tracking-[0.3em] text-white transition-colors duration-300 hover:bg-primaryRed focus:outline-none focus-visible:ring-2 focus-visible:ring-primaryRed focus-visible:ring-offset-2"
                                     >
                                         Add to cart
+                                        <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                                     </button>
                                 </div>
 

@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import {categories} from "@/types/categories"
 import {capitalizeFirstLetter} from "@/utils/util"
+import {INSTAGRAM_HANDLE, INSTAGRAM_URL} from "@/config"
 
 const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
@@ -26,13 +27,13 @@ export const Footer = () => {
               Unique vintage designer jewelry crafted from authentic repurposed buttons and pendants. Every piece tells a story.
             </p>
             <a
-              href="https://www.instagram.com/ambersjewelry.boutique/"
+              href={INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex w-fit items-center gap-2 text-gray-400 transition-colors duration-200 hover:text-primaryRed"
             >
               <InstagramIcon className="size-4" />
-              <span className="font-body text-sm">@ambersjewelry.boutique</span>
+              <span className="font-body text-sm">{INSTAGRAM_HANDLE}</span>
             </a>
           </div>
 

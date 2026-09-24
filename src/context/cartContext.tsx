@@ -10,12 +10,12 @@ interface CartItem {
 
 interface CartContextType {
     cart: CartItem[];
-    addItemToCart: (item: CartItem) => void;
+    /** Adds the product and returns true, or returns false if it's already in the cart. */
+    addItemToCart: (product: StripeProductData) => boolean;
     removeItemFromCart: (id: string) => void;
     clearCart: () => void;
     cartTotal: number;
     isLoading: boolean;
-    updateItemQuantity: (id: string, newQuantity: number) => void
     getCartPrice: () => number;
     getLineItems(): LineItem[];
 
@@ -24,6 +24,9 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 const CART_STORAGE_KEY = 'shopping-cart';
+
+// Every piece is one of a kind, so the cart holds at most one of each product.
+const QUANTITY_PER_ITEM = 1;
 
 // Helper function to safely parse cart data
 const parseStoredCart = (data: string | null): CartItem[] => {
@@ -35,7 +38,8 @@ const parseStoredCart = (data: string | null): CartItem[] => {
             typeof item.quantity === 'number' &&
             item.quantity > 0
         )) {
-            return parsedData;
+            // Carts saved before the one-per-piece rule may hold larger quantities
+            return parsedData.map((item: CartItem) => ({...item, quantity: QUANTITY_PER_ITEM}));
         }
         return [];
     } catch (error) {
@@ -84,35 +88,12 @@ export const CartProvider: React.FC<CartProviderProps> = ({children}) => {
         }
     }, [cart, isLoading]);
 
-    const addItemToCart = (item: CartItem) => {
-        setCart((prevCart) => {
-            const existingItem = prevCart.find(
-                (cartItem) => cartItem.stripeData.id === item.stripeData.id
-            );
-
-            if (existingItem) {
-                return prevCart.map((cartItem) =>
-                    cartItem.stripeData.id === item.stripeData.id
-                        ? {
-                            ...cartItem,
-                            quantity: Math.max(0, cartItem.quantity + item.quantity)
-                        }
-                        : cartItem
-                );
-            }
-
-            return [...prevCart, {...item, quantity: Math.max(0, item.quantity)}];
-        });
-    };
-
-    const updateItemQuantity = (id: string, newQuantity: number) => {
-        setCart((prevCart) =>
-            prevCart.map((item) =>
-                item.stripeData.id === id
-                    ? {...item, quantity: Math.max(0, newQuantity)}
-                    : item
-            )
-        );
+    const addItemToCart = (product: StripeProductData): boolean => {
+        if (cart.some((cartItem) => cartItem.stripeData.id === product.id)) {
+            return false;
+        }
+        setCart((prevCart) => [...prevCart, {stripeData: product, quantity: QUANTITY_PER_ITEM}]);
+        return true;
     };
     const getCartPrice = () => {
         return cart.reduce((total, item) => {
@@ -137,9 +118,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({children}) => {
                 };
             })
             .filter((item): item is LineItem => item !== null); // Filter out null items
-
-        console.log("items: ", items);
-            
 
         return items;
     }
@@ -172,7 +150,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({children}) => {
                 cart,
                 addItemToCart,
                 removeItemFromCart,
-                updateItemQuantity,
                 getLineItems,
                 clearCart,
                 cartTotal,

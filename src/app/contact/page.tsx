@@ -1,11 +1,8 @@
-'use client'
-
 import ContactForm from '@/components/ContactForm'
-export default function Example() {
 
+export default function ContactPage() {
     return (
-
-        <div className='flex flex-col justify-start pt-20 sm:pt-60 min-h-screen max-w-full mx-auto px-4 sm:px-6 lg:px-8 h-full'>
+        <div className='py-8 sm:py-12'>
             <ContactForm />
         </div>
     )

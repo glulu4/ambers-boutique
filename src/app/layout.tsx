@@ -1,4 +1,4 @@
-import {SITE_NAME, SITE_URL} from "@/config";
+import {INSTAGRAM_URL, SITE_NAME, SITE_URL} from "@/config";
 import {cn} from "@/lib/utils";
 import type {Metadata} from "next";
 import {Inter, Corinthia, Lora, Inria_Serif, Rethink_Sans} from "next/font/google";
@@ -76,7 +76,7 @@ const storeJsonLd = {
   },
   "areaServed": [{ "@type": "Country", "name": "United States" }, { "@type": "Country", "name": "Canada" }],
   "priceRange": "$$",
-  "sameAs": ["https://www.instagram.com/ambersjewelry.boutique/"]
+  "sameAs": [INSTAGRAM_URL]
 };
 
 export default function RootLayout({
@@ -110,7 +110,7 @@ export default function RootLayout({
             <CartProvider>
               <main>
                 <Header />
-                <Toaster />
+                <Toaster position="top-right" />
                 {children}
                 <Footer />
               </main>

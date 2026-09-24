@@ -34,6 +34,7 @@ const config = {
         foreground: "hsl(var(--foreground))",
         primaryRed: "#C42847",
         primaryRedHover: "#891A30",
+        cream: "#FAF6F1",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -93,6 +94,14 @@ const config = {
           from: {opacity: "0", transform: "translateX(20px)"},
           to: {opacity: "1", transform: "translateX(0)"},
         },
+        "toast-in": {
+          from: {opacity: "0", transform: "translateY(-12px) scale(0.98)"},
+          to: {opacity: "1", transform: "translateY(0) scale(1)"},
+        },
+        "toast-out": {
+          from: {opacity: "1", transform: "translateY(0) scale(1)"},
+          to: {opacity: "0", transform: "translateY(-8px) scale(0.98)"},
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -101,6 +110,8 @@ const config = {
         "fade-in": "fade-in 0.9s ease-out both",
         "fade-in-left": "fade-in-left 0.8s cubic-bezier(0.16, 1, 0.3, 1) both",
         "fade-in-right": "fade-in-right 0.8s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "toast-in": "toast-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "toast-out": "toast-out 0.25s ease-in both",
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],

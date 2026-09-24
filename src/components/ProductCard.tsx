@@ -3,8 +3,8 @@
 import {useCart} from "@/context/cartContext";
 import {StripeProductData} from "@/types/types";
 import {getProductHref, getProductImg, getProductPrice} from "@/utils/stripeHelpers";
-import {notifyItemAddedToCart} from "@/utils/util";
-import {ShoppingCart} from "lucide-react";
+import {notifyCartUpdate} from "@/components/CartToast";
+import {ShoppingBag} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React, {useState} from "react";
@@ -19,8 +19,7 @@ export default function ProductCard({product, className}: ProductCardProps) {
     const [imgLoaded, setImgLoaded] = useState(false);
 
     const handleAddToCart = () => {
-        addItemToCart({stripeData: product, quantity: 1});
-        notifyItemAddedToCart();
+        notifyCartUpdate(product, addItemToCart(product));
     };
 
     return (
@@ -52,9 +51,9 @@ export default function ProductCard({product, className}: ProductCardProps) {
                         e.stopPropagation();
                         handleAddToCart();
                     }}
-                    className="absolute bottom-3 left-1/2 hidden w-[85%] -translate-x-1/2 translate-y-2 items-center justify-center gap-1.5 rounded-lg border border-primaryRed bg-white/90 px-4 py-2 text-sm font-semibold text-primaryRed opacity-0 backdrop-blur-sm transition-all duration-300 hover:bg-primaryRed hover:text-white sm:flex group-hover:translate-y-0 group-hover:opacity-100"
+                    className="absolute bottom-3 left-1/2 hidden w-[85%] -translate-x-1/2 translate-y-2 items-center justify-center gap-2 bg-white/90 px-4 py-2.5 font-body text-[10px] font-medium uppercase tracking-[0.25em] text-neutral-900 opacity-0 backdrop-blur-sm transition-all duration-300 hover:bg-neutral-900 hover:text-white sm:flex group-hover:translate-y-0 group-hover:opacity-100"
                 >
-                    <ShoppingCart size={14} />
+                    <ShoppingBag size={13} strokeWidth={1.5} />
                     Add to cart
                 </button>
             </div>
@@ -72,9 +71,9 @@ export default function ProductCard({product, className}: ProductCardProps) {
             {/* Add to cart — mobile always-visible button */}
             <button
                 onClick={handleAddToCart}
-                className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg border border-gray-200 bg-white py-2 px-4 font-body text-sm font-medium text-gray-700 transition-all duration-150 active:scale-[0.97] sm:hidden"
+                className="mt-2 flex w-full items-center justify-center gap-2 border border-neutral-300 bg-white px-4 py-2.5 font-body text-[10px] font-medium uppercase tracking-[0.2em] text-neutral-900 transition-all duration-150 active:scale-[0.97] active:bg-neutral-900 active:text-white sm:hidden"
             >
-                <ShoppingCart size={13} />
+                <ShoppingBag size={12} strokeWidth={1.5} />
                 Add to cart
             </button>
         </div>

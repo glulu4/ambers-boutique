@@ -32,3 +32,5 @@ export const config = buildConfig();
 export const SITE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || "https://www.ambersjewelryboutique.com";
 export const SITE_NAME = "Amber's Jewelry Boutique";
+export const INSTAGRAM_URL = "https://www.instagram.com/ambersjewelry.boutique/";
+export const INSTAGRAM_HANDLE = "@ambersjewelry.boutique";

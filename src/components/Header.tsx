@@ -29,21 +29,20 @@ export const Header: FunctionComponent = (...other) => {
 
   const navigationItems = [
     {name: "Our Story", href: "/our-story"},
-    {name: "Cart", href: "/cart"},
-
     {
-      name: "Products",
+      name: "Shop",
       items: [...categories.map((cat) => ({
-        name: capitalizeFirstLetter(cat)+"'s",
+        name: `${capitalizeFirstLetter(cat)}s`,
         href: `/${cat}`,
       })), {name: "All Vintage Jewelry", href: "/all-products"}],
     },
+    {name: "Contact", href: "/contact"},
   ];
 
   return (
-    <section className="flex flex-row md:flex-col sm:gap-10 items-center justify-between mt-8 md:mt-16 mb-12">
+    <section className="flex flex-row lg:flex-col lg:gap-8 items-center justify-between mt-8 lg:mt-14 mb-12">
       <Link href="/">
-        <span className="block text-4xl md:text-6xl font-accent font-bold leading-tight">
+        <span className="block whitespace-nowrap text-3xl sm:text-5xl lg:text-6xl font-accent font-bold leading-tight">
           Amber&apos;s Jewelry Boutique
         </span>
       </Link>

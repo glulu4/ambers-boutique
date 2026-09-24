@@ -1,236 +1,173 @@
 "use client"
-import HeaderText from '@/components/text/HeaderText'
-import SecondaryText from '@/components/text/SecondaryText'
-import {useCart} from '@/context/cartContext'
-import {LineItem, shipping, StripePaymentLinkResponseObj} from '@/types/types'
-import {getProductHref, getProductImg, getProductPrice} from '@/utils/stripeHelpers'
-import {formatCurrency, formatPrice} from '@/utils/util'
-import {ChevronDownIcon} from '@heroicons/react/16/solid'
-import {CheckIcon, ClockIcon, QuestionMarkCircleIcon, XMarkIcon} from '@heroicons/react/20/solid'
+import {useState} from 'react'
 import Image from 'next/image'
-import {useRouter} from "next/navigation";
-import toast from 'react-hot-toast'
+import Link from 'next/link'
+import {useCart} from '@/context/cartContext'
+import {LineItem, shipping} from '@/types/types'
+import {getProductHref, getProductImg, getProductPrice, getProductType} from '@/utils/stripeHelpers'
+import {formatPrice} from '@/utils/util'
+
+const CHECKOUT_ERROR = "We couldn't start checkout. Please try again.";
 
 export default function Page() {
 
-    const {addItemToCart, cart, updateItemQuantity, removeItemFromCart, getCartPrice, getLineItems} = useCart();
-
+    const {cart, isLoading, removeItemFromCart, getCartPrice, getLineItems} = useCart();
+    const [isCheckingOut, setIsCheckingOut] = useState(false);
+    const [checkoutError, setCheckoutError] = useState("");
 
     const subtotal = getCartPrice();
     const total = subtotal + shipping.decimal;
 
-    async function fetchPaymentLink() {
-        try {
-            const items: LineItem[] = getLineItems();
-            console.log("calling api with :", items);
+    async function fetchPaymentLink(): Promise<string> {
+        const items: LineItem[] = getLineItems();
 
-            const response = await fetch("/api/get-link", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    items,
-                    successUrl: `${window.location.origin}/success`, // Redirect after payment success
-                    cancelUrl: window.location.href,
-                }),
+        const response = await fetch("/api/get-link", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                items,
+                successUrl: `${window.location.origin}/success`, // Redirect after payment success
+                cancelUrl: window.location.href,
+            }),
+        });
 
-            });
-
-            console.log("response: ", response);
-            
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || "Failed to fetch payment link");
-            }
-
-            const data = await response.json();
-
-            // Access the URL from the response data structure
-            const paymentUrl = data.url;
-            return paymentUrl;
-
-        } catch (error) {
-            console.log("Error: ", error);
-            throw error;
+        const data = await response.json();
+        if (!response.ok || !data.url) {
+            throw new Error(data.error || "Failed to fetch payment link");
         }
+        return data.url;
     }
 
     async function goToCheckout() {
+        setCheckoutError("");
+        setIsCheckingOut(true);
         try {
-
-            if (cart.length === 0){
-                toast.error("Cart is empty!")
-                return;
-            }
-            
             const paymentUrl = await fetchPaymentLink();
-            if (paymentUrl) {                
-                window.open(paymentUrl, "_self");
-            } else {
-                alert("There was an error during checkout");
-            }
+            window.location.assign(paymentUrl);
         } catch (error) {
             console.error("Checkout error:", error);
-            alert("There was an error during checkout");
+            setCheckoutError(CHECKOUT_ERROR);
+            setIsCheckingOut(false);
         }
     }
 
     return (
-        <div className="">
-            <div className="pt-20">
-                <HeaderText as="h1" size='large' className="">
-                    Shopping Cart
-                </HeaderText>
-                <div className="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
+        <div className="pb-10 pt-8 sm:pt-12">
+            <p className="font-accent text-2xl text-primaryRed">Your selection</p>
+            <h1 className="mt-1 font-heading text-5xl font-semibold leading-tight text-neutral-900 sm:text-6xl">
+                Shopping Cart
+            </h1>
+
+            {/* Wait for the saved cart to load so the empty state doesn't flash */}
+            {isLoading ? null : cart.length === 0 ? (
+                <div className="mt-12 border-t border-neutral-200 pt-12 animate-fade-in-up">
+                    <p className="font-heading text-3xl text-neutral-900">Your cart is empty.</p>
+                    <p className="mt-3 max-w-md font-body text-neutral-600">
+                        Every piece is one of a kind. Find yours before someone else does.
+                    </p>
+                    <Link
+                        href="/all-products"
+                        className="group mt-8 inline-flex items-center gap-3 bg-neutral-900 px-10 py-4 font-body text-xs font-medium uppercase tracking-[0.3em] text-white transition-colors duration-300 hover:bg-primaryRed"
+                    >
+                        Shop vintage jewelry
+                        <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                    </Link>
+                </div>
+            ) : (
+                <div className="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-16">
                     <section aria-labelledby="cart-heading" className="lg:col-span-7">
                         <h2 id="cart-heading" className="sr-only">
                             Items in your shopping cart
                         </h2>
 
-                        <ul role="list" className="divide-y divide-gray-200 border-b border-t border-gray-200">
-                            {cart.map((cartItem, productIdx) => (
-                                <li key={productIdx} className="flex py-6 sm:py-10">
-                                    <div className="shrink-0">
-                                        <Image
-                                            alt={cartItem.stripeData.name}
-                                            src={getProductImg(cartItem.stripeData)}
-                                            className="size-24 rounded-md object-cover sm:size-48"
-                                            width={100}
-                                            height={100}
-                                        />
-                                    </div>
+                        <ul role="list" className="divide-y divide-neutral-200 border-y border-neutral-200">
+                            {cart.map((cartItem) => {
+                                const product = cartItem.stripeData;
+                                return (
+                                    <li key={product.id} className="flex gap-5 py-6 sm:gap-8 sm:py-8 animate-fade-in-up">
+                                        <Link href={getProductHref(product)} className="relative size-28 shrink-0 overflow-hidden bg-neutral-100 sm:size-40">
+                                            <Image
+                                                alt={product.name}
+                                                src={getProductImg(product)}
+                                                fill
+                                                sizes="(min-width: 640px) 160px, 112px"
+                                                className="object-cover transition-transform duration-500 hover:scale-105"
+                                            />
+                                        </Link>
 
-                                    <div className="ml-4 flex flex-1 flex-col justify-between sm:ml-6">
-                                        <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
-                                            <div>
-                                                <div className="flex justify-between">
-                                                    <SecondaryText>
-                                                        <a href={getProductHref(cartItem.stripeData)} className="font-medium text-gray-700 hover:text-gray-800">
+                                        <div className="flex min-w-0 flex-1 flex-col">
+                                            <p className="font-body text-[10px] font-medium uppercase tracking-[0.25em] text-neutral-500">
+                                                {getProductType(product)}
+                                            </p>
+                                            <Link
+                                                href={getProductHref(product)}
+                                                className="mt-1 font-secHeading text-lg leading-snug text-neutral-900 transition-colors hover:text-primaryRed sm:text-xl"
+                                            >
+                                                {product.name}
+                                            </Link>
+                                            <p className="mt-1 font-body text-neutral-600">{getProductPrice(product)}</p>
 
-                                                            {cartItem.stripeData.name}
-                                                        </a>
-                                                    </SecondaryText>
-                                                </div>
-                                                {/* <div className="mt-1 flex text-sm">
-                                                    <p className="text-gray-500">{product.color}</p>
-                                                    {product.size ? (
-                                                        <p className="ml-4 border-l border-gray-200 pl-4 text-gray-500">{product.size}</p>
-                                                    ) : null}
-                                                </div> */}
-                                                <SecondaryText size='small' >{getProductPrice(cartItem.stripeData)}</SecondaryText>
-                                            </div>
-
-                                            <div className="mt-4 sm:mt-0 sm:pr-9">
-                                                <div className="grid w-full max-w-16 grid-cols-1">
-                                                    <select
-                                                        value={cartItem.quantity}
-                                                        onChange={(event) => {
-                                                            const newQnty:string = event.target.value;
-                                                            updateItemQuantity(cartItem.stripeData.id, Number(newQnty))
-
-                                                        }}
-                                                        name={`quantity-${productIdx}`}
-                                                        aria-label={`Quantity, ${cartItem.stripeData.name}`}
-                                                        className="col-start-1 row-start-1 appearance-none rounded-md bg-white py-1.5 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                                                    >
-                                                        <option value={1}>1</option>
-                                                        <option value={2}>2</option>
-                                                        <option value={3}>3</option>
-                                                        <option value={4}>4</option>
-                                                        <option value={5}>5</option>
-                                                        <option value={6}>6</option>
-                                                        <option value={7}>7</option>
-                                                        <option value={8}>8</option>
-                                                    </select>
-                                                    <ChevronDownIcon
-                                                        aria-hidden="true"
-                                                        className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                                                    />
-                                                </div>
-
-                                                <div className="absolute right-0 top-0">
-                                                    <button 
-                                                        onClick={() => removeItemFromCart(cartItem.stripeData.id)}
-                                                    type="button" 
-                                                    className="-m-2 inline-flex p-2 text-gray-400 hover:text-gray-500"
-                                                    >
-                                                        <span className="sr-only">Remove</span>
-                                                        <XMarkIcon aria-hidden="true" className="size-6" />
-                                                    </button>
-                                                </div>
+                                            <div className="mt-auto flex items-center justify-between pt-4">
+                                                <p className="font-accent text-lg text-primaryRed">One of a kind</p>
+                                                <button
+                                                    onClick={() => removeItemFromCart(product.id)}
+                                                    type="button"
+                                                    className="font-body text-[10px] font-medium uppercase tracking-[0.25em] text-neutral-500 underline decoration-neutral-300 underline-offset-4 transition-colors hover:text-primaryRed hover:decoration-primaryRed"
+                                                >
+                                                    Remove
+                                                </button>
                                             </div>
                                         </div>
-
-                                        <p className="mt-4 flex space-x-2 text-sm text-gray-700">
-                                            {true ? (
-                                                <CheckIcon aria-hidden="true" className="size-5 shrink-0 text-green-500" />
-                                            ) : (
-                                                <ClockIcon aria-hidden="true" className="size-5 shrink-0 text-gray-300" />
-                                            )}
-
-                                            <span>In Stock</span>
-                                        </p>
-                                    </div>
-                                </li>
-                            ))}
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </section>
 
                     {/* Order summary */}
                     <section
                         aria-labelledby="summary-heading"
-                        className="mt-16 rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8"
+                        className="mt-12 bg-cream px-6 py-8 sm:px-8 lg:col-span-5 lg:mt-0"
                     >
-                        <HeaderText size='small' id="summary-heading">
+                        <h2 id="summary-heading" className="font-heading text-3xl text-neutral-900">
                             Order summary
-                        </HeaderText>
+                        </h2>
 
-                        <dl className="mt-6 space-y-4">
-                            <div className="flex md:text-md text-lg items-center justify-between">
-                                <dt className=" text-gray-600 font-body">Subtotal</dt>
-                                <dd className=" font-body font-medium text-gray-900">{formatPrice(subtotal)}</dd>
+                        <dl className="mt-8 space-y-4 font-body">
+                            <div className="flex items-center justify-between">
+                                <dt className="text-neutral-600">Subtotal</dt>
+                                <dd className="text-neutral-900">{formatPrice(subtotal)}</dd>
                             </div>
-                            <div className="flex items-center justify-between border-t border-gray-200 pt-4">
-                                <dt className="flex md:text-md text-lg items-center text-gray-600">
-                                    <span className=" text-gray-600 font-body">Shipping estimate</span>
-                                </dt>
-                                <dd className="md:text-md text-lg font-body font-medium text-gray-900">{shipping.display}</dd>
+                            <div className="flex items-center justify-between">
+                                <dt className="text-neutral-600">Shipping</dt>
+                                <dd className="text-neutral-900">{shipping.display}</dd>
                             </div>
-
-                            {/* INSERT TAX STUFF HERE */}
-
-                            {/* <div className="flex items-center justify-between border-t border-gray-200 pt-4">
-                                <dt className="flex text-sm text-gray-600">
-                                    <span>Tax estimate</span>
-                                    <a href="#" className="ml-2 shrink-0 text-gray-400 hover:text-gray-500">
-                                        <span className="sr-only">Learn more about how tax is calculated</span>
-                                        <QuestionMarkCircleIcon aria-hidden="true" className="size-5" />
-                                    </a>
-                                </dt>
-                                <dd className="text-sm font-medium text-gray-900">$8.32</dd>
-                            </div> */}
-                            <div className="flex md:text-md text-lg font-body items-center justify-between border-t border-gray-200 pt-4">
-                                <dt className=" font-medium text-gray-900">Order total</dt>
-                                <dd className=" font-medium text-gray-900">{formatPrice(total)}</dd>
+                            <div className="flex items-center justify-between border-t border-neutral-300 pt-4">
+                                <dt className="font-medium text-neutral-900">Total</dt>
+                                <dd className="font-heading text-2xl text-neutral-900">{formatPrice(total)}</dd>
                             </div>
                         </dl>
+                        <p className="mt-2 font-body text-xs text-neutral-500">Taxes calculated at checkout.</p>
 
-                        <div className="mt-6">
-                            <button
-                                onClick={(e) => {
-                                    goToCheckout(); // Trigger the checkout function
-                                }}
-                                type="button"
-                                className="w-full rounded-md border border-transparent bg-primaryRed px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-primaryRedHover focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
-                            >
-                                Checkout
-                            </button>
-                        </div>
+                        {checkoutError && (
+                            <p className="mt-6 font-body text-sm text-primaryRed" role="alert">{checkoutError}</p>
+                        )}
+
+                        <button
+                            onClick={goToCheckout}
+                            disabled={isCheckingOut}
+                            type="button"
+                            className="group mt-8 inline-flex w-full items-center justify-center gap-3 bg-neutral-900 px-8 py-4 font-body text-xs font-medium uppercase tracking-[0.3em] text-white transition-colors duration-300 hover:bg-primaryRed disabled:opacity-60"
+                        >
+                            {isCheckingOut ? "Redirecting…" : "Checkout"}
+                            <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                        </button>
+                        <p className="mt-4 text-center font-body text-xs text-neutral-500">Secure checkout with Stripe</p>
                     </section>
                 </div>
-            </div>
+            )}
         </div>
     )
 }
